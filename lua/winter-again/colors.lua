@@ -1,59 +1,67 @@
 local M = {
-    none = 'NONE',
-    Foo = '#e4002b',
+    none = "none",
+    Foo = "#ff0000",
+    Bar = "#ff00ff",
 
-    bg = '#1a1b26', -- tokyonight
-    bg_highlight = '#292e42', -- tokyonight
-    bg_visual = '#283457', -- tokyonight
-    bg_float = '#16161e', -- tokyonight
+    fg = "#f0f0f0",
+    fg_dark = "#a0a0a0",
+    fg_comment = "#4c4c4c",
 
-    blue0 = '#7ba6de',
-    blue00 = '#cbd6d7', -- eva
-    blue01 = '#a5bdd6', -- eva
-    blue02 = '#759ab4', -- eva
-    blue03 = '#25629b', -- eva
+    bg = "#0f0f0f",
+    bg_visual = "#393939",
+    bg_float = "#191919",
 
-    blue1 = '#002f6c',
-    blue2 = '#052a6a', -- eva
+    cursor_line = "#262626",
 
-    comment = '#565f89', -- tokyonight
-    dark3 = '#545c7e',
+    -- operator = "#96a3b2",
+    keyword = "#7894ab",
+    -- type = "#a1b3b9",
 
-    fg = '#c0caf5', -- tokyonight
-    fg_dark = '#a9b1d6',
-    fg_sidebar = '#a9b1d6', -- tokyonight
+    blue = "#8a98ac",
+    bluelsf = "#7ba6de",
+    bluewjsn = "#002f6c",
 
-    fg_gray = '#d0d3d4',
+    green = "#8aac8b",
 
-    green = '#8bd450', -- eva
-    green0 = '#c7fba5', -- eva
-    green1 = '#7cb375', -- nvimgelion
-    green2 = '#3f6d4e', -- eva
+    pink = "#ac8aac",
+    purple = "#8f8aac",
 
-    -- gutter = '#3b4261', -- tokyonight
-    gutter = '#696d87',
+    red0 = "#c49ec4",
 
-    orange0 = '#ffa38b',
-    orange1 = '#dc7d68', -- eva
+    yellow = "#aca98a",
+    search = "#c4c19e",
+    orange = "#ceb188",
 
-    -- purple = '#9d7cd8', -- tokyonight purple
-    purple0 = '#b194fa', -- nvimgelion
-    purple1 = '#965fd4', -- eva
-    -- purple2 = '#734f9a', -- eva
-    -- purple3 = '#523874', -- eva
-    -- purple4 = '#5c068c',
+    -- gitSigns = {
+    --     add = "#8aac8b",
+    --     change = "#8a98ac",
+    --     delete = "#c49ec4",
+    -- },
+}
 
-    red0 = '#b63958', -- eva
-    red1 = '#e4002b',
-    red2 = '#ed2323', -- eva
-
-    yellow0 = '#fcc25d', -- eva
-
-    gitSigns = {
-        add = '#3f6d4e',
-        change = '#25629b',
-        delete = '#b63958',
-    },
+local vague = {
+    bg = "#18191a",
+    fg = "#cdcdcd",
+    floatBorder = "#878787",
+    line = "#282830",
+    comment = "#646477",
+    builtin = "#bad1ce",
+    func = "#be8c8c",
+    string = "#deb896",
+    number = "#d2a374",
+    property = "#c7c7d4",
+    constant = "#b4b4ce",
+    parameter = "#b9a3ba",
+    visual = "#363738",
+    error = "#d2788c",
+    warning = "#e6be8c",
+    hint = "#8ca0dc",
+    operator = "#96a3b2",
+    keyword = "#7894ab",
+    type = "#a1b3b9",
+    search = "#465362",
+    plus = "#8faf77",
+    delta = "#e6be8c",
 }
 
 return M

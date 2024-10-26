@@ -238,6 +238,7 @@ M.treesitter = {
     ["@constant.builtin"] = { fg = colors.yellow },
 
     --- Text
+    ["@text"] = { fg = colors.blue },
     -- ['@text.literal.markdown'] = { fg = colors.red500 },
     -- ['@text.literal.markdown_inline'] = { fg = colors.yellow500, bg = colors.green900 },
     -- ['@text.reference'] = { fg = colors.blue500, underline = true },
@@ -399,8 +400,7 @@ M.plugins = {
     CmpItemAbbrMatch = { fg = colors.purple, bg = colors.none },
     CmpItemAbbrMatchFuzzy = { fg = colors.blue, bg = colors.none },
 
-    CmpItemMenu = { fg = colors.fg_comment, bg = colors.none },
-    CmpItemKindDefault = { fg = colors.blue, bg = colors.none },
+    CmpItemMenu = { fg = colors.fg_dark, bg = colors.none },
 
     -- CmpItemKindCodeium = { fg = colors.teal, bg = colors.none },
     -- CmpItemKindCopilot = { fg = colors.teal, bg = colors.none },
@@ -416,51 +416,53 @@ M.plugins = {
     --     LazyProgressTodo = { bold = true, fg = colors.fg_gutter },
     -- }
     --
-    -- -- lsp symbol kind and completion kind highlights
-    -- local kinds = {
-    --     Array = '@punctuation.bracket',
-    --     Boolean = '@boolean',
-    --     Class = '@type',
-    --     Color = 'Special',
-    --     Constant = '@constant',
-    --     Constructor = '@constructor',
-    --     Enum = '@lsp.type.enum',
-    --     EnumMember = '@lsp.type.enumMember',
-    --     Event = 'Special',
-    --     Field = '@field',
-    --     File = 'Normal',
-    --     Folder = 'Directory',
-    --     Function = '@function',
-    --     Interface = '@lsp.type.interface',
-    --     Key = '@field',
-    --     Keyword = '@lsp.type.keyword',
-    --     Method = '@method',
-    --     Module = '@namespace',
-    --     Namespace = '@namespace',
-    --     Null = '@constant.builtin',
-    --     Number = '@number',
-    --     Object = '@constant',
-    --     Operator = '@operator',
-    --     Package = '@namespace',
-    --     Property = '@property',
-    --     Reference = '@text.reference',
-    --     Snippet = 'Conceal',
-    --     String = '@string',
-    --     Struct = '@lsp.type.struct',
-    --     Unit = '@lsp.type.struct',
-    --     Text = '@text',
-    --     TypeParameter = '@lsp.type.typeParameter',
-    --     Variable = '@variable',
-    --     Value = '@string',
 }
 
--- local kind_groups = { 'NavicIcons%s', 'Aerial%sIcon', 'CmpItemKind%s', 'NoiceCompletionItemKind%s' }
--- for kind, link in pairs(kinds) do
---     local base = 'LspKind' .. kind
---     theme.highlights[base] = { link = link }
---     for _, plugin in pairs(kind_groups) do
---         theme.highlights[plugin:format(kind)] = { link = base }
---     end
--- end
+-- lsp symbol kind and completion kind highlights
+local kinds = {
+    Array = "@punctuation.bracket",
+    Boolean = "@boolean",
+    Class = "@type",
+    Color = "Special",
+    Constant = "@constant",
+    Constructor = "@constructor",
+    Enum = "@lsp.type.enum",
+    EnumMember = "@lsp.type.enumMember",
+    Event = "Special",
+    Field = "@field",
+    File = "Normal",
+    Folder = "Directory",
+    Function = "@function",
+    Interface = "@lsp.type.interface",
+    Key = "@field",
+    Keyword = "@lsp.type.keyword",
+    Method = "@method",
+    Module = "@namespace",
+    Namespace = "@namespace",
+    Null = "@constant.builtin",
+    Number = "@number",
+    Object = "@constant",
+    Operator = "@operator",
+    Package = "@namespace",
+    Property = "@property",
+    Reference = "@text.reference",
+    Snippet = "Conceal",
+    String = "@string",
+    Struct = "@lsp.type.struct",
+    Unit = "@lsp.type.struct",
+    Text = "@text",
+    TypeParameter = "@lsp.type.typeParameter",
+    Variable = "@variable",
+    Value = "@string",
+}
+local kind_groups = { "NavicIcons%s", "Aerial%sIcon", "CmpItemKind%s", "NoiceCompletionItemKind%s" }
+
+for kind, link in pairs(kinds) do
+    local base = "LspKind" .. kind
+    M.plugins[base] = { link = link }
+    for _, plugin in pairs(kind_groups) do
+        M.plugins[plugin:format(kind)] = { link = base }
+    end
+end
 
 return M

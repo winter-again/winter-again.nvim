@@ -2,14 +2,19 @@ local M = {}
 
 function M.hello(name)
     -- todo: something
+    -- note: something else
+    -- WARN: this is dangerous
     local msg = "Hello, "
     local z = 5 + 10 * 7 / 7 - 8
     print(z)
     print({})
 
     local bar = true
+    local baz = false
     if bar then
         local st = "foo"
+    elseif not baz then
+        local st = "baz"
     end
     return msg .. name
 end

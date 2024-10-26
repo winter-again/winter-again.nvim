@@ -12,7 +12,7 @@ local M = {
         c = { fg = colors.fg, bg = colors.bg },
     },
     visual = {
-        a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
+        a = { fg = colors.bg, bg = colors.green, gui = "bold" },
         b = { fg = colors.gray0, bg = colors.bg },
         c = { fg = colors.fg, bg = colors.bg },
     },
@@ -22,7 +22,7 @@ local M = {
         c = { fg = colors.fg, bg = colors.bg },
     },
     command = {
-        a = { fg = colors.bg, bg = colors.green, gui = "bold" },
+        a = { fg = colors.bg, bg = colors.blue, gui = "bold" },
         b = { fg = colors.gray0, bg = colors.bg },
         c = { fg = colors.fg, bg = colors.bg },
     },

@@ -1,9 +1,13 @@
 import os
+from pathlib import Path
 
 import pandas
 
 
 def hello(name: str) -> str:
+    """
+    doc comment
+    """
     if len(name) == 4:
         resp = "person"
     else:
@@ -13,6 +17,9 @@ def hello(name: str) -> str:
 
 def main() -> int:
     print(hello("user"))
+
+    bar = Path("./test.py")
+    print(bar)
     return 0
 
 

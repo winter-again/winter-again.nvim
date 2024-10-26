@@ -1,11 +1,10 @@
 local M = {
     none = "none",
-    Foo = "#ff0000",
-    Bar = "#ff00ff",
-    Baz = "#00ff00",
+    Red = "#ff0000",
+    Magenta = "#ff00ff",
+    Lime = "#00ff00",
 
     cursor_line = "#262626",
-    search = "#c4c19e",
 
     fg = "#f0f0f0",
     fg_dark = "#a0a0a0",
@@ -25,8 +24,7 @@ local M = {
 
     yellow = "#aca98a",
 
-    red = "#c49ec4",
-    red1 = "#d2788c",
+    red = "#b36d7c", -- good
 
     orange = "#c6a679",
 

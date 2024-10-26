@@ -2,47 +2,47 @@ local colors = require("winter-again.colors")
 
 local M = {}
 
--- see https://neovim.io/doc/user/syntax.html#highlight-groups
-
 M.editor = {
     -- builtin highlighting groups
+    -- see https://neovim.io/doc/user/syntax.html#highlight-groups
+
     -- ColorColumn    { }, -- Columns set with 'colorcolumn'
     -- Conceal        { }, -- Placeholder characters substituted for concealed text (see 'conceallevel')
-    CurSearch = { link = "IncSearch" }, -- Highlighting a search pattern under the cursor (see 'hlsearch')
+    CurSearch = { fg = colors.bg, bg = colors.yellow, bold = true }, -- Highlighting a search pattern under the cursor (see 'hlsearch'); current search result
     Cursor = { fg = colors.fg, bg = colors.bg, reverse = true }, -- char under cursor
     lCursor = { link = "Cursor" }, -- Character under the cursor when |language-mapping| is used (see 'guicursor')
     CursorIM = { link = "Cursor" }, -- Like Cursor, but used when in IME mode |CursorIM|
     CursorColumn = { link = "CursorLine" }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
     CursorLine = { bg = colors.cursor_line }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
-    -- Directory      { }, -- Directory names (and other special names in listings)
-    -- DiffAdd        { }, -- Diff mode: Added line |diff.txt|
-    -- DiffChange     { }, -- Diff mode: Changed line |diff.txt|
-    -- DiffDelete     { }, -- Diff mode: Deleted line |diff.txt|
-    -- DiffText       { }, -- Diff mode: Changed text within a changed line |diff.txt|
-    EndOfBuffer = { fg = colors.bg }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
-    -- TermCursor     { }, -- Cursor in a focused terminal
-    -- TermCursorNC   { }, -- Cursor in an unfocused terminal
-    WinSeparator = { fg = colors.gray1 }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
-    Folded = { fg = colors.blue, bg = colors.cursor_line, bold = true }, -- Line used for closed folds
+    Directory = { fg = colors.purple }, -- Directory names (and other special names in listings)
+    -- DiffAdd = {}, -- Diff mode: Added line |diff.txt|
+    -- DiffChange = {}, -- Diff mode: Changed line |diff.txt|
+    -- DiffDelete = {}, -- Diff mode: Deleted line |diff.txt|
+    -- DiffText = {}, -- Diff mode: Changed text within a changed line |diff.txt|
+    EndOfBuffer = { fg = colors.fg_dark }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+    -- TermCursor = {}, -- Cursor in a focused terminal
+    -- TermCursorNC = {}, -- Cursor in an unfocused terminal
+    WinSeparator = { fg = colors.gray1, bg = colors.none }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+    Folded = { fg = colors.blue, bg = colors.cursor_line }, -- Line used for closed folds
     ErrorMsg = { fg = colors.red }, -- Error messages on the command line
-    -- FoldColumn = { fg = colors.fg_comment, bg = colors.bg }, -- 'foldcolumn'
-    -- SignColumn = { fg = colors.fg, bg = colors.cursor_line }, -- Column where |signs| are displayed
-    IncSearch = { fg = colors.bg, bg = colors.search, bold = true }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
+    -- FoldColumn = {}, -- 'foldcolumn'
+    -- SignColumn = {}, -- Column where |signs| are displayed
+    IncSearch = { fg = colors.bg, bg = colors.yellow }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
     VertSplit = { link = "WinSeparator" }, -- Column separating vertically split windows
-    -- Substitute     { }, -- |:substitute| replacement text highlighting
+    Substitute = { fg = colors.pink }, -- |:substitute| replacement text highlighting
     LineNr = { fg = colors.fg_dark }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
     -- LineNrAbove = {}, -- Line number for when the relativenumber option is set, above the cursor line
     -- LineNrBelow = {}, -- Line number for when the relativenumber option is set, below the cursor line
     CursorLineNr = { fg = colors.purple, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
-    -- CursorLineFold { }, -- Like FoldColumn when 'cursorline' is set for the cursor line
-    -- CursorLineSign { }, -- Like SignColumn when 'cursorline' is set for the cursor line
+    -- CursorLineFold = {}, -- Like FoldColumn when 'cursorline' is set for the cursor line
+    -- CursorLineSign = {}, -- Like SignColumn when 'cursorline' is set for the cursor line
     MatchParen = { bold = true }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
-    -- ModeMsg        { }, -- 'showmode' message (e.g., "-- INSERT -- ")
-    -- MsgArea        { }, -- Area for messages and cmdline
-    -- MsgSeparator   { }, -- Separator for scrolled messages, `msgsep` flag of 'display'
-    -- MoreMsg        { }, -- |more-prompt|
+    ModeMsg = { fg = colors.fg_dark }, -- 'showmode' message (e.g., "-- INSERT -- ")
+    -- MsgArea = {}, -- Area for messages and cmdline
+    -- MsgSeparator = {}, -- Separator for scrolled messages, `msgsep` flag of 'display'
+    MoreMsg = { fg = colors.purple }, -- |more-prompt|
     NonText = { fg = colors.fg_comment }, -- '@' at the end of the window, characters from 'showbreak' and other characters that do not really exist in the text (e.g., ">" displayed when a double-wide character doesn't fit at the end of the line). See also |hl-EndOfBuffer|.
-    Normal = { bg = colors.none },
+    Normal = { fg = colors.fg, bg = colors.none },
     NormalFloat = { fg = colors.fg, bg = colors.bg_float }, -- Normal text in floating windows.
     FloatBorder = { fg = colors.fg, bg = colors.bg_float }, -- Border of floating windows.
     FloatTitle = { fg = colors.fg, bg = colors.bg_float }, -- Title of floating windows.
@@ -57,33 +57,40 @@ M.editor = {
     -- PmenuExtraSel = {}, -- Popup menu: Selected item "extra text"
     PmenuSbar = { bg = colors.gray2 }, -- Popup menu: Scrollbar.
     PmenuThumb = { bg = colors.gray1 }, -- Popup menu: Thumb of the scrollbar. (current pos)
-    -- PmenuMatch = {}, -- Popup menu: Matched text in normal item Combined with hl-Pmenu
-    -- PmenuMatchSel = {}, -- Popup menu: Matched text in selected item Combined with hl-PmenuMatch and hl-PmenuSel
+    PmenuMatch = { bold = true }, -- Popup menu: Matched text in normal item Combined with hl-Pmenu
+    PmenuMatchSel = { bold = true }, -- Popup menu: Matched text in selected item Combined with hl-PmenuMatch and hl-PmenuSel
 
-    -- Question       { }, -- |hit-enter| prompt and yes/no questions
-    -- QuickFixLine   { }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-    Search = { fg = colors.fg, bg = colors.bg_visual }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out.
+    Question = { fg = colors.blue }, -- |hit-enter| prompt and yes/no questions
+    -- QuickFixLine = {}, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
+    Search = { fg = colors.gray0, bg = colors.gray2 }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out. Non-current search matches
     -- SnippetTabstop = {}, -- Tabstops in snippets
-    -- SpecialKey     { }, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
-    -- SpellBad       { }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-    -- SpellCap       { }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    -- SpellLocal     { }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    -- SpellRare      { }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
+    -- SpecialKey = {}, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
+
+    SpellBad = { sp = colors.red, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+    SpellCap = { sp = colors.yellow, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+    -- SpellLocal = {}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    -- SpellRare = {}, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
+
     StatusLine = { fg = colors.fg, bg = colors.bg }, -- Status line of current window
     StatusLineNC = { fg = colors.fg, bg = colors.bg }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     -- StatusLineTerm = {}, -- Status line of terminal window
     -- StatusLineTermNC = {}, -- Status line of non-current terminal window
-    -- TabLine        { }, -- Tab pages line, not active tab page label
-    -- TabLineFill    { }, -- Tab pages line, where there are no labels
-    -- TabLineSel     { }, -- Tab pages line, active tab page label
-    -- Title          { }, -- Titles for output from ":set all", ":autocmd" etcolors.
+
+    -- TabLine = {}, -- Tab pages line, not active tab page label
+    -- TabLineFill = {}, -- Tab pages line, where there are no labels
+    -- TabLineSel = {}, -- Tab pages line, active tab page label
+    -- Title = {}, -- Titles for output from ":set all", ":autocmd" etcolors.
+
     Visual = { bg = colors.bg_visual, reverse = false }, -- Visual mode selection
-    -- VisualNOS      { }, -- Visual mode selection when vim is "Not Owning the Selection".
-    -- WarningMsg     { }, -- Warning messages
-    -- Whitespace     { }, -- "nbsp", "space", "tab" and "trail" in 'listchars'
-    -- WildMenu = { fg = colors.red0, bg = colors.bg_float, reverse = true }, -- Current match in 'wildmenu' completion
+    -- VisualNOS = {}, -- Visual mode selection when vim is "Not Owning the Selection".
+    -- WarningMsg = {}, -- Warning messages
+    -- Whitespace = {}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
+
+    -- WildMenu = {}, -- Current match in 'wildmenu' completion
+
     WinBar = { fg = colors.fg, bg = colors.bg }, -- Window bar of current window
     WinBarNC = { fg = colors.fg_dark, bg = colors.bg }, -- Window bar of not-current windows
+
     -- Menu = {}, -- Current font, background and foreground colors of the menus. Also used for the toolbar
     -- Scrollbar = {}, -- Current background and foreground of the main window's scrollbars.
     -- Tooltip = {}, -- Current font, background and foreground of the tooltips
@@ -91,50 +98,50 @@ M.editor = {
 
 M.syntax = {
     -- These groups are not listed as default vim groups,
-    -- but they are defacto standard group names for syntax highlighting.
+    -- but they are suggested group names for syntax highlighting.
     -- Commented out groups should link up to their "preferred" group by default
 
     Comment = { fg = colors.fg_comment, italic = true }, -- any comment
     Constant = { fg = colors.purple }, -- (preferred) any constant
     -- Constant = { fg = colors.blue }, -- (preferred) any constant
-    String = { fg = colors.green1 }, --   a string constant: "this is a string"
-    Character = { fg = colors.orange }, --  a character constant: 'c', '\n'
-    Number = { fg = colors.orange, italic = true }, --   a number constant: 234, 0xff
-    Boolean = { fg = colors.orange, italic = true }, --  a boolean constant: TRUE, false
-    Float = { fg = colors.orange, italic = true }, --    a floating point constant: 2.3e10
+    String = { fg = colors.green }, --   a string constant: "this is a string"
+    Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
+    Number = { fg = colors.yellow, italic = true }, --   a number constant: 234, 0xff
+    Boolean = { fg = colors.yellow, italic = true }, --  a boolean constant: TRUE, false
+    Float = { fg = colors.yellow, italic = true }, --    a floating point constant: 2.3e10
     Identifier = { fg = colors.fg }, -- (preferred) any variable name
     Function = { fg = colors.purple, bold = true }, -- function name (also: methods for classes)
     -- Function = { fg = colors.blue, bold = true }, -- function name (also: methods for classes)
     Statement = { fg = colors.purple, bold = true }, -- (preferred) any statement
     Conditional = { fg = colors.blue, bold = true }, --  if, then, else, endif, switch, etcolors.
-    -- Repeat        = { }, --   for, do, while, etcolors.
-    -- Label         = { }, --    case, default, etcolors.
-    Operator = { fg = colors.blue }, -- "sizeof", "+", "*", etcolors.
-    -- Keyword = { fg = colors.blue, bold = false }, --  any other keyword like "local" in Lua
+    Repeat = { fg = colors.blue, bold = true }, --   for, do, while, etcolors. (TS: @keyword.repeat)
+    Label = { fg = colors.Magenta }, --    case, default, etcolors.
+    Operator = { fg = colors.blue }, -- "sizeof", "+", "*", etcolors. (TS: @keyword.operator)
     Keyword = { fg = colors.purple, bold = false }, --  any other keyword like "local" in Lua
+    -- Keyword = { fg = colors.blue, bold = false }, --  any other keyword like "local" in Lua
     -- Exception     = { }, --  try, catch, throw
-    -- PreProc = { fg = colors.blue02 }, -- (preferred) generic Preprocessor
-    -- Include       = { }, --  preprocessor #include
-    -- Define        = { }, --   preprocessor #define
-    -- Macro         = { }, --    same as Define
-    -- PreCondit     = { }, --  preprocessor #if, #else, #endif, etcolors.
+    PreProc = { fg = colors.purple }, -- (preferred) generic Preprocessor
+    Include = { link = "PreProc" }, --  preprocessor #include
+    Define = { link = "PreProc" }, --   preprocessor #define
+    Macro = { link = "PreProc" }, --    same as Define
+    PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
     Type = { fg = colors.blue, italic = true }, -- (preferred) int, long, char, etcolors.
     -- StorageClass  = { }, -- static, register, volatile, etcolors.
     -- Structure     = { }, --  struct, union, enum, etcolors.
     -- Typedef       = { }, --  A typedef
-    -- Special = { fg = colors.blue000 }, -- (preferred) any special symbol
+    Special = { fg = colors.fg_dark }, -- (preferred) any special symbol
     -- SpecialChar   = { }, --  special character in a constant
-    -- Tag           = { }, --    you can use CTRL-] on this
+    Tag = { fg = colors.blue }, --    you can use CTRL-] on this
     -- Delimiter     = { }, --  character that needs attention
     -- SpecialComment= { }, -- special things inside a comment
-    -- Debug = { fg = colors.orange }, --    debugging statements
+    -- Debug = { fg = colors.yellow }, --    debugging statements
     Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
     Bold = { bold = true },
     Italic = { italic = true },
     -- ("Ignore", below, may be invisible...)
     -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
     Error = { fg = colors.red }, -- (preferred) any erroneous construct
-    -- Todo = { fg = colors.bg, bg = colors.blue }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+    Todo = { fg = colors.bg, bg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
     -- qfLineNr = { fg = colors.dark5 },
     -- qfFileName = { fg = colors.blue },
@@ -186,7 +193,7 @@ M.treesitter = {
     -- for standard captures
 
     ["@variable"] = { link = "Identifier" }, -- various variable names
-    ["@variable.builtin"] = { fg = colors.pink, italic = true }, -- built-in variable names (e.g., this, self)
+    ["@variable.builtin"] = { fg = colors.red, italic = true }, -- built-in variable names (e.g., this, self)
     ["@variable.parameter"] = {}, -- parameters of a function
     ["@variable.parameter.builtin"] = {}, -- special parameters (e.g., _, it)
     ["@variable.member"] = { link = "Identifier" }, -- object and struct fields.
@@ -195,14 +202,14 @@ M.treesitter = {
     ["@constant.builtin"] = { fg = colors.yellow }, -- built-in constant values
     ["@constant.macro"] = {}, -- constants defined by the preprocessor
 
-    ["@module"] = { fg = colors.pink }, -- module or namespaces (like main in package main in Go)
-    ["@module.builtin"] = { fg = colors.Foo }, -- built-in modules or namespaces
-    ["@label"] = { fg = colors.Foo }, -- GOTO and other lables (e.g., label: in C), including heredoc labels
+    ["@module"] = { fg = colors.Red }, -- module or namespaces (like main in package main in Go)
+    ["@module.builtin"] = { fg = colors.red }, -- built-in modules or namespaces (TS: @variable.builtin?)
+    ["@label"] = { fg = colors.Lime }, -- GOTO and other labels (e.g., label: in C), including heredoc labels
 
     ["@string"] = { link = "String" }, -- string literals
     ["@string.documentation"] = { link = "String" }, -- string documenting code (e.g., Python docstrings)
-    ["@string.regexp"] = { fg = colors.Foo }, -- regular expressions
-    ["@string.escape"] = { fg = colors.orange }, -- escape sequences
+    ["@string.regexp"] = { fg = colors.Lime }, -- regular expressions
+    ["@string.escape"] = { fg = colors.yellow }, -- escape sequences
     ["@string.special"] = {}, -- other special strings (e.g., dates)
     ["@string.special.symbol"] = {}, -- symbols or atoms
     ["@string.special.path"] = { italic = true }, -- filenames
@@ -219,7 +226,7 @@ M.treesitter = {
     ["@type.builtin"] = { link = "Type" }, -- built-in types
     ["@type.definition"] = {}, -- identifiers in type definitions (e.g., typedef <type> <identifier> in C)
 
-    ["@attribute"] = { italic = true }, -- attribute annotations (e.g., Python decorators, Rust lifetimes)
+    ["@attribute"] = { link = "Constant" }, -- attribute annotations (e.g., Python decorators, Rust lifetimes)
     ["@attribute.builtin"] = { italic = true }, -- built-in annotations (e.g., @property in Python)
     ["@property"] = { fg = colors.blue }, -- the key in key-value pairs
     -- ["@property"] = { fg = colors.purple },
@@ -238,11 +245,11 @@ M.treesitter = {
     ["@keyword"] = { link = "Keyword" }, -- keywords not fitting into specific categories
     ["@keyword.coroutine"] = { fg = colors.pink, bold = true }, -- keywords related to coroutines (e.g., go in Go, async/await in Python)
     ["@keyword.function"] = { fg = colors.pink, bold = true }, -- keywords that define a function (e.g., func in Go, def in Python)
-    ["@keyword.operator"] = { fg = colors.pink }, -- operators that are English words (e.g., and, or, not)
+    ["@keyword.operator"] = { fg = colors.blue }, -- operators that are English words (e.g., and, or, not)
     ["@keyword.import"] = { link = "Keyword" }, -- keywords for including or exporting modules (e.g., import, from in Python)
     ["@keyword.type"] = { fg = colors.pink }, -- keywords describing namespaces and composite types (e.g., struct, enum)
     ["@keyword.modifier"] = { fg = colors.purple, bold = true }, -- keywords modifying other constructs (e.g., const, static, public)
-    ["@keyword.repeat"] = { fg = colors.purple, bold = true }, -- keywords related to loops (e.g., for, while)
+    ["@keyword.repeat"] = { link = "Repeat" }, -- keywords related to loops (e.g., for, while)
     ["@keyword.return"] = { fg = colors.purple, bold = true }, -- keywords like return and yield
     ["@keyword.debug"] = {}, -- keywords related to debugging
     ["@keyword.exception"] = {}, -- keywords releated to exceptions (e.g., throw, catch)
@@ -253,9 +260,9 @@ M.treesitter = {
     ["@keyword.directive"] = {}, -- various preprocessor directives and shebangs
     ["@keyword.directive.define"] = {}, -- preprocessor definition directives
 
-    ["@punctuation.delimiter"] = { fg = colors.fg_dark }, -- delimiters (e.g., ;, ., ,)
+    ["@punctuation.delimiter"] = { link = "Delimiter" }, -- delimiters (e.g., ;, ., ,)
     ["@punctuation.bracket"] = { fg = colors.fg_dark }, -- brackets (e.g., (), {}, [])
-    ["@punctuation.special"] = { fg = colors.blue }, -- special symbols (e.g., {} in string interpolation)
+    ["@punctuation.special"] = { link = "Special" }, -- special symbols (e.g., {} in string interpolation)
 
     ["@comment"] = { link = "Comment" }, -- line and block comments
     ["@comment.documentation"] = { link = "Comment" }, -- comments documenting code
@@ -355,7 +362,7 @@ M.lsp = {
     ["@lsp.type.selfKeyword"] = { link = "@variable.builtin" },
     ["@lsp.type.string.rust"] = { link = "@string" },
     ["@lsp.type.typeAlias"] = { link = "@type.definition" },
-    ["@lsp.type.unresolvedReference"] = { undercurl = true, sp = colors.red },
+    ["@lsp.type.unresolvedReference"] = { sp = colors.red, undercurl = true },
     -- ["@lsp.type.variable"] = {}, -- use treesitter styles for regular variables
     ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
     ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },
@@ -392,7 +399,7 @@ M.plugins = {
     -- nvim-cmp (see :h cmp-highlight)
     CmpItemAbbr = { fg = colors.fg_dark }, -- unmatched characters of each completion field
     CmpItemAbbrDeprecated = { fg = colors.fg_comment, strikethrough = true }, -- unmatchedd characters of each deprecated completion field
-    CmpItemAbbrMatch = { fg = colors.purple }, -- matched characters of each completion field
+    CmpItemAbbrMatch = { fg = colors.purple, bold = true }, -- matched characters of each completion field
     CmpItemAbbrMatchFuzzy = { fg = colors.blue }, -- fuzzy-matched characters of each completion field
     CmpItemKind = { fg = colors.Foo }, -- kind of the field (the symbol after each completion option)
     CmpItemMenu = { fg = colors.fg_dark }, -- menu field's higlight group (cmp source in brackets)
@@ -434,10 +441,12 @@ M.plugins = {
     -- todo-comments (not comprehensive)
     TodoFgTodo = { fg = colors.purple },
     TodoBgTodo = { fg = colors.bg, bg = colors.purple, bold = true },
-    TodoFgNote = { fg = colors.fg_comment },
-    TodoBgNote = { fg = colors.bg, bg = colors.fg_comment, bold = true },
+    TodoFgNote = { fg = colors.gray0 },
+    TodoBgNote = { fg = colors.bg, bg = colors.gray0, bold = true },
     TodoFgWarn = { fg = colors.yellow },
     TodoBgWarn = { fg = colors.bg, bg = colors.yellow, bold = true },
+    TodoFgFix = { fg = colors.red },
+    TodoBgFix = { fg = colors.bg, bg = colors.red2, bold = true },
 
     -- diff
     --     diffAdded = { fg = colors.git.add },

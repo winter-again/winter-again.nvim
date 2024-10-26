@@ -24,7 +24,7 @@ M.editor = {
     -- TermCursorNC   { }, -- Cursor in an unfocused terminal
     -- Winseparator = { fg = colors.fg_dark, bold = true }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
     -- Folded = { fg = colors.blue1, bg = colors.fg_dark, bold = true }, -- Line used for closed folds
-    -- ErrorMsg = { fg = colors.red0 }, -- Error messages on the command line
+    ErrorMsg = { fg = colors.red }, -- Error messages on the command line
     -- FoldColumn = { fg = colors.fg_comment, bg = colors.bg }, -- 'foldcolumn'
     -- SignColumn = { fg = colors.fg, bg = colors.cursor_line }, -- Column where |signs| are displayed
     IncSearch = { fg = colors.search, standout = true }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
@@ -94,21 +94,24 @@ M.syntax = {
 
     Comment = { fg = colors.fg_comment, italic = true }, -- any comment
     Constant = { fg = colors.blue }, -- (preferred) any constant
+    -- Constant = { fg = colors.purple }, -- (preferred) any constant
     String = { fg = colors.green }, --   a string constant: "this is a string"
     Character = { fg = colors.Foo }, --  a character constant: 'c', '\n'
-    Number = { fg = colors.yellow, italic = true }, --   a number constant: 234, 0xff
-    Boolean = { fg = colors.yellow, italic = true }, --  a boolean constant: TRUE, false
-    Float = { fg = colors.yellow, italic = true }, --    a floating point constant: 2.3e10
+    Number = { fg = colors.orange, italic = true }, --   a number constant: 234, 0xff
+    Boolean = { fg = colors.orange, italic = true }, --  a boolean constant: TRUE, false
+    Float = { fg = colors.orange, italic = true }, --    a floating point constant: 2.3e10
 
     Identifier = { fg = colors.fg }, -- (preferred) any variable name
     Function = { fg = colors.purple, bold = true }, -- function name (also: methods for classes)
+    -- Function = { fg = colors.blue, bold = true }, -- function name (also: methods for classes)
 
-    Statement = { fg = colors.Foo, bold = true }, -- (preferred) any statement
+    Statement = { fg = colors.Bar, bold = true }, -- (preferred) any statement
     -- Conditional   = { }, --  if, then, else, endif, switch, etcolors.
     -- Repeat        = { }, --   for, do, while, etcolors.
     -- Label         = { }, --    case, default, etcolors.
-    Operator = { fg = colors.Bar }, -- "sizeof", "+", "*", etcolors.
+    Operator = { fg = colors.blue }, -- "sizeof", "+", "*", etcolors.
     Keyword = { fg = colors.blue, bold = false }, --  any other keyword like "local" in Lua
+    -- Keyword = { fg = colors.purple, bold = false }, --  any other keyword like "local" in Lua
     -- Exception     = { }, --  try, catch, throw
 
     -- NOTE: targets things like 'import' in Python
@@ -119,10 +122,10 @@ M.syntax = {
     -- PreCondit     = { }, --  preprocessor #if, #else, #endif, etcolors.
 
     Type = { fg = colors.blue, italic = true }, -- (preferred) int, long, char, etcolors.
-    -- -- StorageClass  = { }, -- static, register, volatile, etcolors.
-    -- -- Structure     = { }, --  struct, union, enum, etcolors.
-    -- -- Typedef       = { }, --  A typedef
-    --
+    -- StorageClass  = { }, -- static, register, volatile, etcolors.
+    -- Structure     = { }, --  struct, union, enum, etcolors.
+    -- Typedef       = { }, --  A typedef
+
     -- Special = { fg = colors.blue000 }, -- (preferred) any special symbol
     -- SpecialChar   = { }, --  special character in a constant
     -- Tag           = { }, --    you can use CTRL-] on this
@@ -138,42 +141,42 @@ M.syntax = {
     -- ("Ignore", below, may be invisible...)
     -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
 
-    -- Error = { fg = colors.error }, -- (preferred) any erroneous construct
-    -- Todo = { bg = colors.yellow, fg = colors.bg }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-    --
+    Error = { fg = colors.red }, -- (preferred) any erroneous construct
+    Todo = { fg = colors.bg, bg = colors.blue }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+
     -- qfLineNr = { fg = colors.dark5 },
     -- qfFileName = { fg = colors.blue },
     --
     -- htmlH1 = { fg = colors.magenta, bold = true },
     -- htmlH2 = { fg = colors.blue, bold = true },
-    --
-    -- -- mkdHeading = { fg = colors.orange, bold = true },
-    -- -- mkdCode = { bg = colors.terminal_black, fg = colors.fg },
+
+    -- mkdHeading = { fg = colors.orange, bold = true },
+    -- mkdCode = { bg = colors.terminal_black, fg = colors.fg },
     -- mkdCodeDelimiter = { bg = colors.terminal_black, fg = colors.fg },
     -- mkdCodeStart = { fg = colors.teal, bold = true },
     -- mkdCodeEnd = { fg = colors.teal, bold = true },
-    -- -- mkdLink = { fg = colors.blue, underline = true },
-    --
+    -- mkdLink = { fg = colors.blue, underline = true },
+
     -- markdownHeadingDelimiter = { fg = colors.orange, bold = true },
     -- markdownCode = { fg = colors.teal },
     -- markdownCodeBlock = { fg = colors.teal },
     -- markdownH1 = { fg = colors.magenta, bold = true },
     -- markdownH2 = { fg = colors.blue, bold = true },
     -- markdownLinkText = { fg = colors.blue, underline = true },
-    --
+
     -- ['helpCommand'] = { bg = colors.terminal_black, fg = colors.blue },
-    --
+
     -- debugPC = { bg = colors.bg_sidebar }, -- used for highlighting the current line in terminal-debug
     -- debugBreakpoint = { bg = util.darken(colors.info, 0.1), fg = colors.info }, -- used for breakpoint colors in terminal-debug
-    --
+
     -- dosIniLabel = { link = '@property' },
-    --
-    -- -- These groups are for the native LSP client. Some other LSP clients may
-    -- -- use these groups, or use their own. Consult your LSP client's
-    -- -- documentation.
-    -- LspReferenceText = { bg = colors.fg_gutter }, -- used for highlighting "text" references
-    -- LspReferenceRead = { bg = colors.fg_gutter }, -- used for highlighting "read" references
-    -- LspReferenceWrite = { bg = colors.fg_gutter }, -- used for highlighting "write" references
+
+    -- These groups are for the native LSP client. Some other LSP clients may
+    -- use these groups, or use their own. Consult your LSP client's
+    -- documentation.
+    LspReferenceText = { bg = colors.Foo }, -- used for highlighting "text" references
+    LspReferenceRead = { bg = colors.Foo }, -- used for highlighting "read" references
+    LspReferenceWrite = { bg = colors.Foo }, -- used for highlighting "write" references
 
     DiagnosticError = { fg = colors.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticWarn = { fg = colors.yellow }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
@@ -181,32 +184,32 @@ M.syntax = {
     DiagnosticHint = { fg = colors.fg_dark }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     DiagnosticUnnecessary = { fg = colors.fg_dark }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
 
-    -- DiagnosticVirtualTextError = { bg = colors.bg_float, fg = colors.red1 }, -- Used for "Error" diagnostic virtual text
-    -- DiagnosticVirtualTextWarn = { bg = colors.bg_float, fg = colors.yellow0 }, -- Used for "Warning" diagnostic virtual text
-    -- DiagnosticVirtualTextInfo = { bg = colors.bg_float, fg = colors.dark3 }, -- Used for "Information" diagnostic virtual text
-    -- DiagnosticVirtualTextHint = { bg = colors.bg_float, fg = colors.green2 }, -- Used for "Hint" diagnostic virtual text
+    DiagnosticVirtualTextError = { fg = colors.red, bg = colors.bg_float }, -- Used for "Error" diagnostic virtual text
+    DiagnosticVirtualTextWarn = { bg = colors.bg_float }, -- Used for "Warning" diagnostic virtual text
+    DiagnosticVirtualTextInfo = { bg = colors.bg_float }, -- Used for "Information" diagnostic virtual text
+    DiagnosticVirtualTextHint = { fg = colors.fg_dark, bg = colors.bg_float }, -- Used for "Hint" diagnostic virtual text
 
-    -- DiagnosticUnderlineError = { undercurl = true, sp = colors.error }, -- Used to underline "Error" diagnostics
-    -- DiagnosticUnderlineWarn = { undercurl = true, sp = colors.warning }, -- Used to underline "Warning" diagnostics
-    -- DiagnosticUnderlineInfo = { undercurl = true, sp = colors.info }, -- Used to underline "Information" diagnostics
-    -- DiagnosticUnderlineHint = { undercurl = true, sp = colors.hint }, -- Used to underline "Hint" diagnostics
+    DiagnosticUnderlineError = { undercurl = true, sp = colors.red }, -- Used to underline "Error" diagnostics
+    DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow }, -- Used to underline "Warning" diagnostics
+    DiagnosticUnderlineInfo = { undercurl = true, sp = colors.blue }, -- Used to underline "Information" diagnostics
+    DiagnosticUnderlineHint = { undercurl = true, sp = colors.fg_dark }, -- Used to underline "Hint" diagnostics
 }
 
 M.treesitter = {
     -- ["@comment.documentation"] = { },
 
-    ["@operator"] = { fg = colors.blue }, -- For any operator: `+`, but also `->` and `*` in colors.
+    ["@operator"] = { link = "Operator" }, -- For any operator: `+`, but also `->` and `*` in colors.
 
     --- Punctuation
-    ["@punctuation.delimiter"] = { fg = colors.fg_dark }, -- For delimiters ie: `.`
-    ["@punctuation.bracket"] = { fg = colors.fg_dark }, -- For brackets and parens.
+    ["@punctuation.delimiter"] = { fg = colors.blue }, -- For delimiters ie: `.`
+    ["@punctuation.bracket"] = { fg = colors.blue }, -- For brackets and parens.
     ["@punctuation.special"] = { fg = colors.blue }, -- For special punctutation that does not fall in the catagories before.
-    -- ["@punctuation.special.markdown"] = { fg = colors.orange0, bold = true },
+    ["@punctuation.special.markdown"] = { fg = colors.Foo, bold = true },
 
     --- Literals
     ["@string.documentation"] = { fg = colors.Foo },
     ["@string.regex"] = { fg = colors.Foo }, -- For regexes.
-    ["@string.escape"] = { fg = colors.Bar }, -- For escape characters within a string.
+    ["@string.escape"] = { fg = colors.orange }, -- For escape characters within a string.
 
     --- Functions
     ["@constructor"] = { fg = colors.purple }, -- For constructor calls and definitions: `= { }` in Lua, and Java constructors.
@@ -225,11 +228,12 @@ M.treesitter = {
     ["@type.builtin"] = { link = "Type" },
     ["@variable.member"] = { link = "Identifier" }, -- For fields.
     ["@property"] = { fg = colors.blue },
+    -- ["@property"] = { fg = colors.purple },
 
     --- Identifiers
     ["@variable"] = { link = "Identifier" }, -- Any variable name that does not have another highlight.
-    ["@variable.builtin"] = { fg = colors.Foo }, -- Variable names that are defined by the languages, like `this` or `self`.
-    ["@namespace.builtin"] = { fg = colors.Bar }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ["@variable.builtin"] = { fg = colors.pink }, -- Variable names that are defined by the languages, like `this` or `self`.
+    ["@namespace.builtin"] = { fg = colors.pink }, -- Variable names that are defined by the languages, like `this` or `self`.
 
     ["@constant.builtin"] = { fg = colors.yellow },
 
@@ -403,10 +407,10 @@ M.plugins = {
     -- CmpItemKindTabNine = { fg = colors.teal, bg = colors.none },
 
     -- NeoVim
-    --     healthError = { fg = colors.error },
-    --     healthSuccess = { fg = colors.green1 },
-    --     healthWarning = { fg = colors.warning },
-    --
+    healthError = { fg = colors.red },
+    healthSuccess = { fg = colors.green },
+    healthWarning = { fg = colors.orange },
+
     -- Lazy
     --     LazyProgressDone = { bold = true, fg = colors.magenta2 },
     --     LazyProgressTodo = { bold = true, fg = colors.fg_gutter },

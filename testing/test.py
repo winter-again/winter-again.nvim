@@ -3,16 +3,17 @@ import os
 import pandas
 
 
-def hello(name):
+def hello(name: str) -> str:
     if len(name) == 4:
         resp = "person"
     else:
         resp = "animal"
-    return f"Hello, {resp}"
+    return f"Hello, {resp}.\nHow are you"
 
 
-def main():
+def main() -> int:
     print(hello("user"))
+    return 0
 
 
 if __name__ == "__main__":

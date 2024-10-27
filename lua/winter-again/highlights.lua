@@ -5,14 +5,14 @@ local M = {}
 
 ---@param group string
 ---@param hl table
-function M.set_highlight(group, hl)
+local function set_highlight(group, hl)
     vim.api.nvim_set_hl(0, group, hl)
 end
 
-function M._load()
+function M._set_highlights()
     for _, hl_set in pairs(M.sets) do
         for group, hl in pairs(hl_set) do
-            M.set_highlight(group, hl)
+            set_highlight(group, hl)
         end
     end
 end

@@ -10,7 +10,7 @@ function M._load()
     vim.g.colors_name = "winter-again"
     vim.opt.termguicolors = true
 
-    require("winter-again.highlights")._load()
+    require("winter-again.highlights")._set_highlights()
 end
 
 ---@param opts? Config

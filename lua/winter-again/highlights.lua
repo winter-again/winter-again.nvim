@@ -111,31 +111,32 @@ M.sets = {
         -- Scrollbar = {}, -- Current background and foreground of the main window's scrollbars.
         -- Tooltip = {}, -- Current font, background and foreground of the tooltips
     },
+    -- todo: cleaner way to resolve the text_styles? note only text_styles overridden here
     syntax = {
         -- These groups are not listed as default vim groups,
         -- but they are suggested group names for syntax highlighting.
-        Comment = { fg = colors.fg_comment, italic = true }, -- any comment
+        Comment = vim.tbl_deep_extend("force", { fg = colors.fg_comment }, config.opts.text_styles.comments), -- any comment
         Constant = { fg = colors.yellow }, -- (preferred) any constant
         String = { fg = colors.green }, --   a string constant: "this is a string"
         Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
-        Number = { fg = colors.yellow, italic = false }, --   a number constant: 234, 0xff
-        Boolean = { fg = colors.yellow, italic = true }, --  a boolean constant: TRUE, false
-        Float = { fg = colors.yellow, italic = false }, --    a floating point constant: 2.3e10
+        Number = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.numbers), --   a number constant: 234, 0xff
+        Boolean = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.booleans), --  a boolean constant: TRUE, false
+        Float = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.floats), -- a floating point constant: 2.3e10
         Identifier = { fg = colors.fg }, -- (preferred) any variable name
-        Function = { fg = colors.purple, bold = true }, -- function name (also: methods for classes) (TS: @function)
-        Statement = { fg = colors.purple, bold = true }, -- (preferred) any statement
+        Function = vim.tbl_deep_extend("force", { fg = colors.purple }, config.opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
+        Statement = vim.tbl_deep_extend("force", { fg = colors.purple }, config.opts.text_styles.statements), -- (preferred) any statement
         Conditional = { fg = colors.blue, bold = true }, --  if, then, else, endif, switch, etcolors.
         Repeat = { link = "Conditional" }, --   for, do, while, etcolors. (TS: @keyword.repeat)
         -- Label = { fg = colors.Magenta }, --    case, default, etcolors.
         Operator = { fg = colors.fg_dark }, -- "sizeof", "+", "*", etcolors. (also "==", "=", "->")
-        Keyword = { fg = colors.purple, italic = false }, --  any other keyword like "local" in Lua and import in Python/Go
+        Keyword = vim.tbl_deep_extend("force", { fg = colors.purple }, config.opts.text_styles.keywords), --  any other keyword like "local" in Lua and import in Python/Go
         Exception = { link = "Keyword" }, --  try, catch, throw
         PreProc = { fg = colors.purple }, -- (preferred) generic Preprocessor
         Include = { link = "PreProc" }, --  preprocessor #include
         Define = { link = "PreProc" }, --   preprocessor #define
         Macro = { link = "PreProc" }, --    same as Define
         PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
-        Type = { fg = colors.blue, italic = true }, -- (preferred) int, long, char, etcolors.
+        Type = vim.tbl_deep_extend("force", { fg = colors.blue }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
         -- StorageClass  = { }, -- static, register, volatile, etcolors.
         Structure = { link = "Type" }, --  struct, union, enum, etcolors.
         -- Typedef       = { }, --  A typedef

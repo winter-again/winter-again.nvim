@@ -137,7 +137,7 @@ M.sets = {
         PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
         Type = { fg = colors.blue, italic = true }, -- (preferred) int, long, char, etcolors.
         -- StorageClass  = { }, -- static, register, volatile, etcolors.
-        -- Structure     = { }, --  struct, union, enum, etcolors.
+        Structure = { link = "Type" }, --  struct, union, enum, etcolors.
         -- Typedef       = { }, --  A typedef
         Special = { fg = colors.blue }, -- (preferred) any special symbol
         -- SpecialChar   = { }, --  special character in a constant
@@ -333,7 +333,7 @@ M.sets = {
         ["@lsp.type.enumMember"] = { link = "@constant" },
         ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
         ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
-        ["@lsp.type.interface"] = { fg = colors.Magenta },
+        ["@lsp.type.interface"] = { link = "Structure" },
         ["@lsp.type.keyword"] = { link = "@keyword" },
         ["@lsp.type.namespace"] = { fg = colors.Lime },
         ["@lsp.type.number"] = { link = "@number" },

@@ -38,15 +38,15 @@ M.sets = {
         EndOfBuffer = { fg = colors.fg_comment }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         -- TermCursor = {}, -- Cursor in a focused terminal
         -- TermCursorNC = {}, -- Cursor in an unfocused terminal
-        WinSeparator = { fg = colors.gray1, bg = config.opts.transparent and colors.none or colors.bg }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
-        Folded = { fg = colors.blue, bg = colors.cursor_line }, -- Line used for closed folds
+        WinSeparator = { fg = colors.gray2, bg = config.opts.transparent and colors.none or colors.bg }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
+        Folded = { fg = colors.blue, bg = colors.gray4 }, -- Line used for closed folds
         ErrorMsg = { fg = colors.red }, -- Error messages on the command line
         -- FoldColumn = {}, -- 'foldcolumn'
         -- SignColumn = {}, -- Column where |signs| are displayed
         IncSearch = { fg = colors.bg, bg = colors.yellow }, -- 'incsearch' highlighting; also used for the text replaced with ":s///c"
         VertSplit = { link = "WinSeparator" }, -- Column separating vertically split windows
         Substitute = { fg = colors.pink }, -- |:substitute| replacement text highlighting
-        LineNr = { fg = colors.fg_dark }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
+        LineNr = { fg = colors.gray1 }, -- Line number for ":number" and ":#" commands, and when 'number' or 'relativenumber' option is set.
         -- LineNrAbove = {}, -- Line number for when the relativenumber option is set, above the cursor line
         -- LineNrBelow = {}, -- Line number for when the relativenumber option is set, below the cursor line
         CursorLineNr = { fg = colors.purple, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
@@ -71,14 +71,14 @@ M.sets = {
         -- PmenuKindSel = {}, -- Popup menu: Selected item "kind"
         -- PmenuExtra = {}, -- Popup menu: Normal item "extra text"
         -- PmenuExtraSel = {}, -- Popup menu: Selected item "extra text"
-        PmenuSbar = { bg = colors.gray2 }, -- Popup menu: Scrollbar.
-        PmenuThumb = { bg = colors.gray1 }, -- Popup menu: Thumb of the scrollbar. (current pos)
+        PmenuSbar = { bg = colors.gray4 }, -- Popup menu: Scrollbar.
+        PmenuThumb = { bg = colors.gray2 }, -- Popup menu: Thumb of the scrollbar. (current pos)
         PmenuMatch = { bold = true }, -- Popup menu: Matched text in normal item Combined with hl-Pmenu
         PmenuMatchSel = { bold = true }, -- Popup menu: Matched text in selected item Combined with hl-PmenuMatch and hl-PmenuSel
 
         Question = { fg = colors.blue }, -- |hit-enter| prompt and yes/no questions
         -- QuickFixLine = {}, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
-        Search = { fg = colors.yellow, bg = colors.gray2 }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out. Non-current search matches
+        Search = { fg = colors.yellow, bg = colors.gray3 }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out. Non-current search matches
         -- SnippetTabstop = {}, -- Tabstops in snippets
         -- SpecialKey = {}, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
 
@@ -99,12 +99,12 @@ M.sets = {
 
         Visual = { bg = colors.bg_visual, reverse = false }, -- Visual mode selection
         -- VisualNOS = {}, -- Visual mode selection when vim is "Not Owning the Selection".
-        -- WarningMsg = {}, -- Warning messages
+        WarningMsg = { fg = colors.yellow }, -- Warning messages
         -- Whitespace = {}, -- "nbsp", "space", "tab" and "trail" in 'listchars'
 
         -- WildMenu = {}, -- Current match in 'wildmenu' completion
 
-        WinBar = { fg = colors.fg_dark, bg = colors.bg }, -- Window bar of current window
+        WinBar = { fg = colors.fg_mid, bg = colors.bg }, -- Window bar of current window
         WinBarNC = { fg = colors.fg_dark, bg = colors.bg }, -- Window bar of not-current windows
 
         -- Menu = {}, -- Current font, background and foreground colors of the menus. Also used for the toolbar
@@ -178,7 +178,7 @@ M.sets = {
         Macro = { link = "PreProc" }, --    same as Define
         PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
         -- todo: colors.blue or colors.cyan?
-        Type = vim.tbl_deep_extend("force", { fg = colors.blue }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
+        Type = vim.tbl_deep_extend("force", { fg = colors.cyan }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
         -- StorageClass  = { }, -- static, register, volatile, etcolors.
         Structure = { link = "Type" }, --  struct, union, enum, etcolors.
         -- Typedef       = { }, --  A typedef
@@ -395,7 +395,7 @@ M.sets = {
 
         -- treesitter-context
         TreesitterContext = { link = "Folded" },
-        TreesitterContextLineNumber = { fg = colors.blue },
+        TreesitterContextLineNumber = { fg = colors.gray0 },
 
         -- hlsearchlens
         HlSearchLens = { link = "Search" },
@@ -427,7 +427,7 @@ M.sets = {
         -- telescope
         TelescopeNormal = { fg = colors.fg_dark, bg = colors.bg_float },
         -- TelescopeBorder = { fg = colors.Foo, bg = colors.bg_float },
-        TelescopeMatching = { fg = colors.purple, bg = colors.bg_float },
+        TelescopeMatching = { fg = colors.purple },
         TelescopeSelection = { bg = colors.bg_visual },
         TelescopeSelectionCaret = { fg = colors.purple },
         TelescopePromptNormal = { fg = colors.fg, bg = colors.bg_float },
@@ -442,7 +442,7 @@ M.sets = {
         NvimTreeGitDirty = { fg = colors.blue },
         NvimTreeGitNew = { fg = colors.green },
         NvimTreeGitDeleted = { fg = colors.red },
-        NvimTreeGitIgnored = { fg = colors.Magenta },
+        NvimTreeGitIgnored = { fg = colors.fg_dark },
         NvimTreeFolderIcon = { fg = colors.purple },
         NvimTreeWinSeparator = { fg = colors.fg_dark, bg = colors.bg_float },
         NvimTreeRootFolder = { fg = colors.fg_dark, bold = true },
@@ -486,8 +486,8 @@ M.sets = {
         MasonHighlightBlockSecondary = { fg = colors.bg, bg = colors.blue },
         MasonHighlightBlockBoldSecondary = { fg = colors.bg, bg = colors.blue },
         MasonHeaderSecondary = { fg = colors.bg, bg = colors.blue },
-        MasonMuted = { fg = colors.gray0, bg = colors.bg_float },
-        MasonMutedBlock = { fg = colors.gray0, bg = colors.gray2 },
+        MasonMuted = { fg = colors.gray1, bg = colors.bg_float },
+        MasonMutedBlock = { fg = colors.gray1, bg = colors.gray3 },
     },
 }
 

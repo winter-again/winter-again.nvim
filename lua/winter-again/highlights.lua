@@ -35,7 +35,7 @@ M.sets = {
         DiffChange = { fg = colors.blue }, -- Diff mode: Changed line |diff.txt|
         DiffDelete = { fg = colors.red }, -- Diff mode: Deleted line |diff.txt|
         DiffText = { fg = colors.bg, bg = colors.blue }, -- Diff mode: Changed text within a changed line |diff.txt|
-        EndOfBuffer = { fg = colors.fg_dark }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
+        EndOfBuffer = { fg = colors.fg_comment }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         -- TermCursor = {}, -- Cursor in a focused terminal
         -- TermCursorNC = {}, -- Cursor in an unfocused terminal
         WinSeparator = { fg = colors.gray1, bg = config.opts.transparent and colors.none or colors.bg }, -- Separator between window splits. Inherts from |hl-VertSplit| by default, which it will replace eventually.
@@ -61,7 +61,7 @@ M.sets = {
         Normal = { fg = colors.fg, bg = config.opts.transparent and colors.none or colors.bg },
         NormalFloat = { fg = colors.fg, bg = colors.bg_float }, -- Normal text in floating windows.
         FloatBorder = { fg = colors.fg, bg = colors.bg_float }, -- Border of floating windows.
-        FloatTitle = { fg = colors.fg, bg = colors.bg_float }, -- Title of floating windows.
+        FloatTitle = { fg = colors.fg_dark, bg = colors.bg_float }, -- Title of floating windows.
         -- FloatFooter = {}, -- Footer of floating windows
         NormalNC = { bg = config.opts.transparent and colors.none or colors.bg },
 
@@ -82,8 +82,8 @@ M.sets = {
         -- SnippetTabstop = {}, -- Tabstops in snippets
         -- SpecialKey = {}, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|
 
-        SpellBad = { sp = colors.red, undercurl = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
-        SpellCap = { sp = colors.yellow, undercurl = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
+        SpellBad = { sp = colors.red, underdotted = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
+        SpellCap = { sp = colors.yellow, underdotted = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
         -- SpellLocal = {}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
         -- SpellRare = {}, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 
@@ -110,6 +110,48 @@ M.sets = {
         -- Menu = {}, -- Current font, background and foreground colors of the menus. Also used for the toolbar
         -- Scrollbar = {}, -- Current background and foreground of the main window's scrollbars.
         -- Tooltip = {}, -- Current font, background and foreground of the tooltips
+
+        -- see: https://neovim.io/doc/user/diagnostic.html#_highlights
+        DiagnosticError = { fg = colors.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+        DiagnosticWarn = { fg = colors.yellow }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+        DiagnosticInfo = { fg = colors.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+        DiagnosticHint = { fg = colors.fg_dark }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+        DiagnosticOk = { fg = colors.green }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
+
+        -- virtual text next to a diagnostic
+        DiagnosticVirtualTextError = { fg = colors.red, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Error" diagnostic virtual text
+        DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Warning" diagnostic virtual text
+        DiagnosticVirtualTextInfo = { fg = colors.blue, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Information" diagnostic virtual text
+        DiagnosticVirtualTextHint = {
+            fg = colors.fg_dark,
+            bg = config.opts.transparent and colors.none or colors.bg,
+        }, -- Used for "Hint" diagnostic virtual text
+        DiagnosticVirtualTextOk = { fg = colors.green, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Ok" diagnostic virtual text
+
+        -- underline for diagnostics
+        DiagnosticUnderlineError = { sp = colors.red, underdotted = true }, -- Used to underline "Error" diagnostics
+        DiagnosticUnderlineWarn = { sp = colors.yellow, underdotted = true }, -- Used to underline "Warning" diagnostics
+        DiagnosticUnderlineInfo = { sp = colors.blue, underdotted = true }, -- Used to underline "Information" diagnostics
+        DiagnosticUnderlineHint = { sp = colors.fg_dark, underdotted = true }, -- Used to underline "Hint" diagnostics
+        DiagnosticUnderlineOk = { sp = colors.green, underdotted = true }, -- Used to underline "Ok" diagnostics
+
+        -- text inside of floating window when getting more diagnostic info
+        DiagnosticFloatingError = { fg = colors.red }, -- Used to color "Error" diagnostic messages in diagnostics float
+        DiagnosticFloatingWarn = { fg = colors.yellow }, -- Used to color "Warn" diagnostic messages in diagnostics float
+        DiagnosticFloatingInfo = { fg = colors.blue }, -- Used to color "Info" diagnostic messages in diagnostics float
+        DiagnosticFloatingHint = { fg = colors.fg_dark }, -- Used to color "Hint" diagnostic messages in diagnostics float
+        DiagnosticFloatingOk = { fg = colors.green }, -- Used to color "Ok" diagnostic messages in diagnostics float
+
+        -- sign column
+        DiagnosticSignError = { fg = colors.red }, -- Used for "Error" signs in sign column
+        DiagnosticSignWarn = { fg = colors.yellow }, -- Used for "Warn" signs in sign column
+        DiagnosticSignInfo = { fg = colors.blue }, -- Used for "Info" signs in sign column
+        DiagnosticSignHint = { fg = colors.fg_dark }, -- Used for "Hint" signs in sign column
+        DiagnosticSignOk = { fg = colors.green }, -- Used for "Ok" signs in sign column
+
+        DiagnosticDeprecated = { fg = colors.fg_comment }, -- Used for deprecated or obsolete code
+        -- e.g., unused import
+        DiagnosticUnnecessary = { fg = colors.fg_comment }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
     },
     syntax = {
         -- These groups are not listed as default vim groups,
@@ -118,9 +160,9 @@ M.sets = {
         Constant = { fg = colors.yellow }, -- (preferred) any constant
         String = { fg = colors.green }, --   a string constant: "this is a string"
         Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
-        Number = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.numbers), --   a number constant: 234, 0xff
+        Number = vim.tbl_deep_extend("force", { fg = colors.orange }, config.opts.text_styles.numbers), --   a number constant: 234, 0xff
         Boolean = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.booleans), --  a boolean constant: TRUE, false
-        Float = vim.tbl_deep_extend("force", { fg = colors.yellow }, config.opts.text_styles.floats), -- a floating point constant: 2.3e10
+        Float = vim.tbl_deep_extend("force", { fg = colors.orange }, config.opts.text_styles.floats), -- a floating point constant: 2.3e10
         Identifier = { fg = colors.fg }, -- (preferred) any variable name
         Function = vim.tbl_deep_extend("force", { fg = colors.purple }, config.opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
         Statement = vim.tbl_deep_extend("force", { fg = colors.purple }, config.opts.text_styles.statements), -- (preferred) any statement
@@ -135,6 +177,7 @@ M.sets = {
         Define = { link = "PreProc" }, --   preprocessor #define
         Macro = { link = "PreProc" }, --    same as Define
         PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
+        -- todo: colors.blue or colors.cyan?
         Type = vim.tbl_deep_extend("force", { fg = colors.blue }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
         -- StorageClass  = { }, -- static, register, volatile, etcolors.
         Structure = { link = "Type" }, --  struct, union, enum, etcolors.
@@ -148,13 +191,13 @@ M.sets = {
         Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
         Bold = { bold = true },
         Italic = { italic = true },
-        -- ("Ignore", below, may be invisible...)
         -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
         Error = { fg = colors.red }, -- (preferred) any erroneous construct
-        -- Todo = { fg = colors.bg, bg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords ODO FIXME and XXX
 
-        -- qfLineNr = { fg = colors.dark5 },
-        -- qfFileName = { fg = colors.blue },
+        qfLineNr = { fg = colors.fg_dark },
+        qfFileName = { fg = colors.fg },
+
         -- htmlH1 = { fg = colors.magenta, bold = true },
         -- htmlH2 = { fg = colors.blue, bold = true },
         -- mkdHeading = { fg = colors.orange, bold = true },
@@ -173,7 +216,6 @@ M.sets = {
         -- debugPC = { bg = colors.bg_sidebar }, -- used for highlighting the current line in terminal-debug
         -- debugBreakpoint = { bg = util.darken(colors.info, 0.1), fg = colors.info }, -- used for breakpoint colors in terminal-debug
         -- dosIniLabel = { link = '@property' },
-        -- Commented out groups should link up to their "preferred" group by default?
     },
     treesitter = {
         -- see https://neovim.io/doc/user/treesitter#treesitter-highlight-groups
@@ -284,7 +326,6 @@ M.sets = {
         ["@tag.builtin"] = { fg = colors.red }, -- builtin tag names (e.g., HTML5 tags)
         ["@tag.attribute"] = { link = "Function" }, -- XML-style tag attributes
         ["@tag.delimiter"] = { link = "Delimiter" }, -- XML-style tag delimiters
-        -- for standard captures
     },
     lsp = {
         -- These groups are for the native LSP client. Some other LSP clients may
@@ -298,27 +339,6 @@ M.sets = {
         LspCodeLens = { fg = colors.fg_dark },
         LspInlayHint = { fg = colors.fg_dark },
         LspInfoBorder = { fg = colors.fg, bg = colors.bg_float },
-
-        DiagnosticError = { fg = colors.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticWarn = { fg = colors.yellow }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticInfo = { fg = colors.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticHint = { fg = colors.fg_dark }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-        DiagnosticUnnecessary = { fg = colors.fg_dark }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
-
-        DiagnosticSignError = { fg = colors.red }, -- Used for "Error" signs in sign column
-        DiagnosticSignWarn = { fg = colors.yellow }, -- Used for "Warn" signs in sign column
-        DiagnosticSignInfo = { fg = colors.blue }, -- Used for "Info" signs in sign column
-        DiagnosticSignHint = { fg = colors.fg_dark }, -- Used for "Hint" signs in sign column
-
-        DiagnosticVirtualTextError = { fg = colors.red, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Error" diagnostic virtual text
-        DiagnosticVirtualTextWarn = { fg = colors.yellow, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Warning" diagnostic virtual text
-        DiagnosticVirtualTextInfo = { fg = colors.blue, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Information" diagnostic virtual text
-        DiagnosticVirtualTextHint = { fg = colors.fg_dark, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Hint" diagnostic virtual text
-
-        DiagnosticUnderlineError = { undercurl = true, sp = colors.red }, -- Used to underline "Error" diagnostics
-        DiagnosticUnderlineWarn = { undercurl = true, sp = colors.yellow }, -- Used to underline "Warning" diagnostics
-        DiagnosticUnderlineInfo = { undercurl = true, sp = colors.blue }, -- Used to underline "Information" diagnostics
-        DiagnosticUnderlineHint = { undercurl = true, sp = colors.fg_dark }, -- Used to underline "Hint" diagnostics
 
         -- LSP Semantic Token Groups (semantic highlighting)
         ["@lsp.type.boolean"] = { link = "@boolean" },
@@ -375,12 +395,13 @@ M.sets = {
 
         -- treesitter-context
         TreesitterContext = { link = "Folded" },
-        TreesitterContextLineNumber = { fg = colors.purple },
+        TreesitterContextLineNumber = { fg = colors.blue },
 
         -- hlsearchlens
         HlSearchLens = { link = "Search" },
 
         -- gitsigns
+        -- todo: change color shouldn't be blue?
         GitSignsAdd = { fg = colors.green },
         GitSignsChange = { fg = colors.blue },
         GitSignsDelete = { fg = colors.red },
@@ -399,6 +420,9 @@ M.sets = {
         CmpItemAbbrMatchFuzzy = { fg = colors.blue }, -- fuzzy-matched characters of each completion field
         CmpItemKind = { fg = colors.fg }, -- kind of the field (the symbol after each completion option)
         CmpItemMenu = { fg = colors.fg_dark }, -- menu field's higlight group (cmp source in brackets)
+
+        -- lsp saga
+        -- SagaTitle = { fg = colors.Magenta },
 
         -- telescope
         TelescopeNormal = { fg = colors.fg_dark, bg = colors.bg_float },

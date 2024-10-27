@@ -1,4 +1,4 @@
-local colors = require("winter-again.colors")
+local colors = require("winter-again.colors").colors
 local config = require("winter-again.config")
 
 local M = {}
@@ -364,6 +364,7 @@ M.sets = {
         ["@lsp.type.typeAlias"] = { link = "@type.definition" },
         ["@lsp.type.unresolvedReference"] = { link = "Error" },
         ["@lsp.type.variable"] = { link = "@variable" },
+        -- ["@lsp.type.variable"] = { link = "Constant" },
 
         ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
         ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },

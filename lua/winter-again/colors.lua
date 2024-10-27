@@ -1,44 +1,60 @@
+local palette = {
+    -- mountain fuji theme
+    yuki = "#f0f0f0",
+    gin = "#767676",
+    amagumo = "#4c4c4c",
+    tetsu = "#393939",
+    iwa = "#262626",
+    kesseki = "#191919",
+    yoru = "#0f0f0f",
+
+    ume = "#8f8aac",
+    kosumosu = "#ac8aac",
+    chikyu = "#aca98a",
+    yellow = "#ab9a78",
+    kaen = "#ac8a8c",
+    red = "#b36d7c",
+    aki = "#c6a679",
+    orange = "#c59a5f",
+    mizu = "#8aacab",
+    cyan = "#708090",
+    -- cyan = "#7b9695", -- test
+    take = "#8aac8b",
+    green = "#789978",
+    shinkai = "#8a98ac",
+    blue = "#7e97ab",
+    -- bluelsf = "#7ba6de",
+    -- bluewjsn = "#002f6c",
+}
+
 local M = {
     none = "none",
     Red = "#ff0000",
     Magenta = "#ff00ff",
     Lime = "#00ff00",
 
-    -- todo: organize grays and ui colors
-    -- todo: alias colors for git and diagnostics? brighter/dimmer versions?
-    fg = "#f0f0f0",
-    fg_dark = "#a0a0a0",
-    fg_comment = "#4c4c4c",
+    fg = palette.yuki,
+    fg_dark = palette.gin,
+    fg_comment = palette.amagumo,
 
-    bg = "#0f0f0f",
-    bg_visual = "#393939",
-    bg_float = "#191919",
+    bg = palette.yoru,
+    bg_float = palette.kesseki,
+    bg_visual = palette.tetsu,
+    cursor_line = palette.iwa,
 
-    cursor_line = "#262626",
+    gray0 = palette.gin,
+    gray1 = palette.amagumo,
+    gray2 = palette.tetsu,
+    gray3 = palette.iwa,
 
-    gray0 = "#767676",
-    gray1 = "#4c4c4c",
-    gray2 = "#262626",
-    gray3 = "#191919",
-
-    purple = "#8f8aac",
-    pink = "#ac8aac",
-    -- pink = "#b380B0", -- test
-    red = "#b36d7c",
-    -- yellow = "#aca98a",
-    yellow = "#ab9a78", -- test
-    orange = "#c59a5f",
-    orange1 = "#c6a679",
-    -- cyan = "#8aacab",
-    cyan = "#708090", -- test
-    -- cyan = "#7b9695", -- test
-    -- green = "#8aac8b",
-    green = "#789978", -- test
-    -- blue = "#8a98ac",
-    -- blue = "#7788aa", -- test
-    blue = "#7e97ab", -- test
-    -- bluelsf = "#7ba6de",
-    -- bluewjsn = "#002f6c",
+    purple = palette.ume,
+    pink = palette.kosumosu,
+    yellow = palette.yellow,
+    red = palette.red,
+    orange = palette.orange,
+    cyan = palette.cyan,
+    green = palette.green,
+    blue = palette.blue,
 }
 
 return M

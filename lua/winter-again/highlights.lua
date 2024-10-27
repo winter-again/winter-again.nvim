@@ -31,10 +31,10 @@ M.sets = {
         CursorColumn = { link = "CursorLine" }, -- Screen-column at the cursor, when 'cursorcolumn' is set.
         CursorLine = { bg = colors.cursor_line }, -- Screen-line at the cursor, when 'cursorline' is set. Low-priority if foreground (ctermfg OR guifg) is not set.
         Directory = { fg = colors.blue }, -- Directory names (and other special names in listings)
-        -- DiffAdd = {}, -- Diff mode: Added line |diff.txt|
-        -- DiffChange = {}, -- Diff mode: Changed line |diff.txt|
-        -- DiffDelete = {}, -- Diff mode: Deleted line |diff.txt|
-        -- DiffText = {}, -- Diff mode: Changed text within a changed line |diff.txt|
+        DiffAdd = { fg = colors.green }, -- Diff mode: Added line |diff.txt|
+        DiffChange = { fg = colors.blue }, -- Diff mode: Changed line |diff.txt|
+        DiffDelete = { fg = colors.red }, -- Diff mode: Deleted line |diff.txt|
+        DiffText = { fg = colors.bg, bg = colors.blue }, -- Diff mode: Changed text within a changed line |diff.txt|
         EndOfBuffer = { fg = colors.fg_dark }, -- Filler lines (~) after the end of the buffer. By default, this is highlighted like |hl-NonText|.
         -- TermCursor = {}, -- Cursor in a focused terminal
         -- TermCursorNC = {}, -- Cursor in an unfocused terminal
@@ -111,7 +111,6 @@ M.sets = {
         -- Scrollbar = {}, -- Current background and foreground of the main window's scrollbars.
         -- Tooltip = {}, -- Current font, background and foreground of the tooltips
     },
-    -- todo: cleaner way to resolve the text_styles? note only text_styles overridden here
     syntax = {
         -- These groups are not listed as default vim groups,
         -- but they are suggested group names for syntax highlighting.
@@ -295,6 +294,11 @@ M.sets = {
         LspReferenceRead = { link = "LspReferenceText" }, -- used for highlighting "read" references
         LspReferenceWrite = { link = "LspReferenceText" }, -- used for highlighting "write" references
 
+        LspSignatureActiveParameter = { bg = colors.gray1, bold = true },
+        LspCodeLens = { fg = colors.fg_dark },
+        LspInlayHint = { fg = colors.fg_dark },
+        LspInfoBorder = { fg = colors.fg, bg = colors.bg_float },
+
         DiagnosticError = { fg = colors.red }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
         DiagnosticWarn = { fg = colors.yellow }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
         DiagnosticInfo = { fg = colors.blue }, -- Used as the base highlight group. Other Diagnostic highlights link to this by default
@@ -303,7 +307,7 @@ M.sets = {
 
         DiagnosticSignError = { fg = colors.red }, -- Used for "Error" signs in sign column
         DiagnosticSignWarn = { fg = colors.yellow }, -- Used for "Warn" signs in sign column
-        DiagnosticSignInfo = { fg = colors.blu }, -- Used for "Info" signs in sign column
+        DiagnosticSignInfo = { fg = colors.blue }, -- Used for "Info" signs in sign column
         DiagnosticSignHint = { fg = colors.fg_dark }, -- Used for "Hint" signs in sign column
 
         DiagnosticVirtualTextError = { fg = colors.red, bg = config.opts.transparent and colors.none or colors.bg }, -- Used for "Error" diagnostic virtual text
@@ -316,36 +320,31 @@ M.sets = {
         DiagnosticUnderlineInfo = { undercurl = true, sp = colors.blue }, -- Used to underline "Information" diagnostics
         DiagnosticUnderlineHint = { undercurl = true, sp = colors.fg_dark }, -- Used to underline "Hint" diagnostics
 
-        LspSignatureActiveParameter = { bg = colors.Lime, bold = true },
-        LspCodeLens = { fg = colors.comment },
-        LspInlayHint = { fg = colors.comment, bg = colors.Magenta },
-        LspInfoBorder = { fg = colors.fg, bg = colors.bg_float },
-
-        -- ALEErrorSign = { fg = c.error },
-        -- ALEWarningSign = { fg = c.warning },
-
-        -- DapStoppedLine = { bg = util.darken(c.warning, 0.1) }, -- Used for "Warning" diagnostic virtual text
-
         -- LSP Semantic Token Groups (semantic highlighting)
         ["@lsp.type.boolean"] = { link = "@boolean" },
         ["@lsp.type.builtinType"] = { link = "@type.builtin" },
         ["@lsp.type.comment"] = { link = "@comment" },
+        ["@lsp.type.decorator"] = { link = "@attribute" },
         ["@lsp.type.enum"] = { link = "@type" },
         ["@lsp.type.enumMember"] = { link = "@constant" },
         ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
         ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
-        ["@lsp.type.interface"] = { link = "Structure" },
+        ["@lsp.type.interface"] = { link = "@type" },
         ["@lsp.type.keyword"] = { link = "@keyword" },
-        ["@lsp.type.namespace"] = { fg = colors.Lime },
+        ["@lsp.type.lifetime"] = { link = "@keyword" },
+        ["@lsp.type.namespace"] = { link = "@module" },
         ["@lsp.type.number"] = { link = "@number" },
         ["@lsp.type.operator"] = { link = "@operator" },
         ["@lsp.type.parameter"] = { link = "@variable.parameter" },
         ["@lsp.type.property"] = { link = "@property" },
         ["@lsp.type.selfKeyword"] = { link = "@variable.builtin" },
+        ["@lsp.type.selfTypeKeyword"] = { link = "@variable.builtin" },
+        ["@lsp.type.string"] = { link = "@string" },
         ["@lsp.type.string.rust"] = { link = "@string" },
         ["@lsp.type.typeAlias"] = { link = "@type.definition" },
         ["@lsp.type.unresolvedReference"] = { link = "Error" },
-        -- ["@lsp.type.variable"] = { link = "@variable" }, -- use treesitter styles for regular variables
+        ["@lsp.type.variable"] = { link = "@variable" },
+
         ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
         ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },
         ["@lsp.typemod.enumMember.defaultLibrary"] = { link = "@constant.builtin" },
@@ -355,28 +354,43 @@ M.sets = {
         ["@lsp.typemod.method.defaultLibrary"] = { link = "@function.builtin" },
         ["@lsp.typemod.operator.injected"] = { link = "@operator" },
         ["@lsp.typemod.string.injected"] = { link = "@string" },
-        ["@lsp.typemod.type.defaultLibrary"] = { fg = colors.Lime },
+        ["@lsp.typemod.type.defaultLibrary"] = { link = "@type.builtin" },
+        ["@lsp.typemod.typeAlias.defaultLibrary"] = { link = "@type.builtin" },
+        ["@lsp.typemod.variable.callable"] = { link = "@function" },
         ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
         ["@lsp.typemod.variable.injected"] = { link = "@variable" },
-        -- ["@lsp.type.regexp"] = { fg = colors.Red },
-        -- ["@lsp.typemod.variable.globalScope"] (global variables)
+        ["@lsp.typemod.variable.static"] = { link = "@constant" },
     },
     plugins = {
+        -- health
+        healthError = { fg = colors.red },
+        healthSuccess = { fg = colors.green },
+        healthWarning = { fg = colors.yellow },
+
+        -- lazy
+        LazyProgressTodo = { fg = colors.gray1 },
+        LazyProgressDone = { fg = colors.purple },
+        LazyInfo = { fg = colors.purple },
+        LazyH1 = { fg = colors.bg, bg = colors.purple },
+
         -- treesitter-context
-        TreesitterContext = { bg = colors.bg_float },
+        TreesitterContext = { link = "Folded" },
         TreesitterContextLineNumber = { fg = colors.purple },
 
         -- hlsearchlens
         HlSearchLens = { link = "Search" },
 
-        -- GitSigns
-        GitSignsAdd = { fg = colors.green }, -- diff mode: Added line |diff.txt|
-        GitSignsChange = { fg = colors.blue }, -- diff mode: Changed line |diff.txt|
-        GitSignsDelete = { fg = colors.red }, -- diff mode: Deleted line |diff.txt|
+        -- gitsigns
+        GitSignsAdd = { fg = colors.green },
+        GitSignsChange = { fg = colors.blue },
+        GitSignsDelete = { fg = colors.red },
+        GitSignsAddPreview = { fg = colors.green, bg = colors.bg_float },
+        GitSignsChangePreview = { fg = colors.blue, bg = colors.bg_float },
+        GitSignsDeletePreview = { fg = colors.red, bg = colors.gray2 },
 
-        -- indent blankline
-        IblIndent = { fg = colors.fg_comment, nocombine = true },
-        IblScope = { fg = colors.purple, nocombine = true },
+        -- indent-blankline
+        IblIndent = { fg = colors.fg_comment },
+        IblScope = { fg = colors.purple },
 
         -- nvim-cmp (see :h cmp-highlight)
         CmpItemAbbr = { fg = colors.fg_dark }, -- unmatched characters of each completion field
@@ -389,30 +403,31 @@ M.sets = {
         -- telescope
         TelescopeNormal = { fg = colors.fg_dark, bg = colors.bg_float },
         -- TelescopeBorder = { fg = colors.Foo, bg = colors.bg_float },
-        TelescopeMatching = { fg = colors.purple },
+        TelescopeMatching = { fg = colors.purple, bg = colors.bg_float },
         TelescopeSelection = { bg = colors.bg_visual },
         TelescopeSelectionCaret = { fg = colors.purple },
         TelescopePromptNormal = { fg = colors.fg, bg = colors.bg_float },
         TelescopePromptCounter = { fg = colors.fg_dark, bg = colors.bg_float },
+        TelescopePreviewNormal = { link = "TelescopeNormal" },
 
-        -- NvimTree
-        -- NvimTreeNormal = { fg = colors.fg_sidebar, bg = colors.bg_sidebar },
-        -- -- NvimTreeWinSeparator = {
-        -- --     fg = options.styles.sidebars == "transparent" and colors.border or colors.bg_sidebar,
-        -- --     bg = colors.bg_sidebar,
-        -- -- },
-        -- NvimTreeNormalNC = { fg = colors.fg_sidebar, bg = colors.bg_sidebar },
-        -- NvimTreeRootFolder = { fg = colors.blue, bold = true },
-        -- NvimTreeGitDirty = { fg = colors.git.change },
-        -- NvimTreeGitNew = { fg = colors.git.add },
-        -- NvimTreeGitDeleted = { fg = colors.git.delete },
-        -- NvimTreeOpenedFile = { bg = colors.bg_highlight },
-        -- NvimTreeSpecialFile = { fg = colors.purple, underline = true },
-        -- NvimTreeIndentMarker = { fg = colors.fg_gutter },
-        -- NvimTreeImageFile = { fg = colors.fg_sidebar },
-        -- NvimTreeSymlink = { fg = colors.blue },
-        -- NvimTreeFolderIcon = { bg = colors.none, fg = colors.blue },
-        -- NvimTreeFolderName = { fg = colors.fg_float },
+        -- nvim-tree
+        NvimTreeNormal = { fg = colors.fg_dark, bg = colors.bg_float },
+        NvimTreeNormalFloat = { fg = colors.fg_dark, bg = colors.bg_float },
+        NvimTreeNormalNC = { fg = colors.fg_dark, bg = colors.bg_float },
+        NvimTreeIndentMarker = { fg = colors.fg_comment },
+        NvimTreeGitDirty = { fg = colors.blue },
+        NvimTreeGitNew = { fg = colors.green },
+        NvimTreeGitDeleted = { fg = colors.red },
+        NvimTreeGitIgnored = { fg = colors.Magenta },
+        NvimTreeFolderIcon = { fg = colors.purple },
+        NvimTreeWinSeparator = { fg = colors.fg_dark, bg = colors.bg_float },
+        NvimTreeRootFolder = { fg = colors.fg_dark, bold = true },
+        NvimTreeSpecialFile = { fg = colors.fg_dark, underline = true },
+        NvimTreeSymlink = { fg = colors.green },
+        NvimTreeOpenedFile = { fg = colors.blue },
+        NvimTreeOpenedFolderName = { fg = colors.blue },
+        NvimTreeImageFile = { fg = colors.yellow },
+        NvimTreeFolderName = { fg = colors.fg_dark },
 
         -- trouble
         TroubleText = { fg = colors.purple },
@@ -430,52 +445,25 @@ M.sets = {
         TodoFgFix = { fg = colors.red },
         TodoBgFix = { fg = colors.bg, bg = colors.red, bold = true },
 
-        -- diff
-        --     diffAdded = { fg = colors.git.add },
-        --     diffRemoved = { fg = colors.git.delete },
-        --     diffChanged = { fg = colors.git.change },
-        --     diffOldFile = { fg = colors.yellow },
-        --     diffNewFile = { fg = colors.orange },
-        --     diffFile = { fg = colors.blue },
-        --     diffLine = { fg = colors.comment },
-        --     diffIndexLine = { fg = colors.magenta },
+        -- alpha
+        -- AlphaHeader = { fg = colors.Magenta },
+        -- AlphaHeaderLabel = { fg = colors.Red },
+        -- AlphaShortcut = { fg = colors.Lime },
+        -- AlphaFooter = { fg = colors.Magenta },
+        -- AlphaButtons = { fg = colors.Lime },
 
-        -- Alpha
-        --     AlphaShortcut = { fg = colors.orange },
-        --     AlphaHeader = { fg = colors.blue },
-        --     AlphaHeaderLabel = { fg = colors.orange },
-        --     AlphaFooter = { fg = colors.blue1 },
-        --     AlphaButtons = { fg = colors.cyan },
-
-        -- LspSaga
-        --     DiagnosticWarning = { link = 'DiagnosticWarn' },
-        --     DiagnosticInformation = { link = 'DiagnosticInfo' },
-        --
-        --     LspFloatWinNormal = { bg = colors.bg_float },
-        --     LspFloatWinBorder = { fg = colors.border_highlight },
-        --     LspSagaBorderTitle = { fg = colors.cyan },
-        --     LspSagaHoverBorder = { fg = colors.blue },
-        --     LspSagaRenameBorder = { fg = colors.green },
-        --     LspSagaDefPreviewBorder = { fg = colors.green },
-        --     LspSagaCodeActionBorder = { fg = colors.blue },
-        --     LspSagaFinderSelection = { fg = colors.bg_visual },
-        --     LspSagaCodeActionTitle = { fg = colors.blue1 },
-        --     LspSagaCodeActionContent = { fg = colors.purple },
-        --     LspSagaSignatureHelpBorder = { fg = colors.red },
-        --     ReferencesCount = { fg = colors.purple },
-        --     DefinitionCount = { fg = colors.purple },
-        --     DefinitionIcon = { fg = colors.blue },
-        --     ReferencesIcon = { fg = colors.blue },
-        --     TargetWord = { fg = colors.cyan },
-
-        -- health
-        healthError = { fg = colors.red },
-        healthSuccess = { fg = colors.green },
-        healthWarning = { fg = colors.yellow },
-
-        -- lazy
-        LazyProgressTodo = { fg = colors.gray1 },
-        LazyProgressDone = { fg = colors.purple },
+        -- mason
+        MasonNormal = { fg = colors.fg, bg = colors.bg_float },
+        MasonHeader = { fg = colors.bg, bg = colors.purple },
+        MasonHighlight = { fg = colors.green },
+        MasonHighlightBlock = { fg = colors.green },
+        MasonHighlightBlockBold = { fg = colors.bg, bg = colors.purple },
+        MasonHighlightSecondary = { fg = colors.green },
+        MasonHighlightBlockSecondary = { fg = colors.bg, bg = colors.blue },
+        MasonHighlightBlockBoldSecondary = { fg = colors.bg, bg = colors.blue },
+        MasonHeaderSecondary = { fg = colors.bg, bg = colors.blue },
+        MasonMuted = { fg = colors.gray0, bg = colors.bg_float },
+        MasonMutedBlock = { fg = colors.gray0, bg = colors.gray2 },
     },
 }
 

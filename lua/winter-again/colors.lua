@@ -179,23 +179,23 @@ M.colors = {
     Magenta = "#ff00ff",
     Lime = "#00ff00",
 
-    fg = M.palette.fuyu,
+    fg = hex_mod(M.palette.fuyu, config.opts.brightness),
     -- fg = palette.yuki, -- brighter
-    fg_mid = M.palette.tsuki,
-    fg_dark = M.palette.okami,
-    fg_comment = M.palette.amagumo,
+    fg_mid = hex_mod(M.palette.tsuki, config.opts.brightness),
+    fg_dark = hex_mod(M.palette.okami, config.opts.brightness),
+    fg_comment = hex_mod(M.palette.amagumo, config.opts.brightness),
 
-    bg = M.palette.yoru,
-    bg_float = M.palette.kesseki,
-    bg_visual = M.palette.tetsu,
-    cursor_line = M.palette.iwa,
+    bg = hex_mod(M.palette.yoru, config.opts.brightness),
+    bg_float = hex_mod(M.palette.kesseki, config.opts.brightness),
+    bg_visual = hex_mod(M.palette.tetsu, config.opts.brightness),
+    cursor_line = hex_mod(M.palette.iwa, config.opts.brightness),
 
-    gray0 = M.palette.okami,
-    gray1 = M.palette.gin,
-    gray2 = M.palette.amagumo,
-    gray3 = M.palette.tetsu,
-    gray4 = M.palette.iwa,
-    gray5 = M.palette.kesseki,
+    gray0 = hex_mod(M.palette.okami, config.opts.brightness),
+    gray1 = hex_mod(M.palette.gin, config.opts.brightness),
+    gray2 = hex_mod(M.palette.amagumo, config.opts.brightness),
+    gray3 = hex_mod(M.palette.tetsu, config.opts.brightness),
+    gray4 = hex_mod(M.palette.iwa, config.opts.brightness),
+    gray5 = hex_mod(M.palette.kesseki, config.opts.brightness),
 
     purple = hex_mod(M.palette.ume, config.opts.brightness),
     pink = hex_mod(M.palette.kosumosu, config.opts.brightness),
@@ -205,15 +205,6 @@ M.colors = {
     cyan = hex_mod(M.palette.cyan, config.opts.brightness),
     green = hex_mod(M.palette.green, config.opts.brightness),
     blue = hex_mod(M.palette.blue, config.opts.brightness),
-
-    -- purple = M.palette.ume,
-    -- pink = M.palette.kosumosu,
-    -- yellow = M.palette.yellow,
-    -- red = M.palette.red,
-    -- orange = M.palette.orange,
-    -- cyan = M.palette.cyan,
-    -- green = M.palette.green,
-    -- blue = M.palette.blue,
 }
 
 return M

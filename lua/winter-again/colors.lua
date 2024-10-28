@@ -198,14 +198,22 @@ M.colors = {
     gray5 = M.palette.kesseki,
 
     purple = hex_mod(M.palette.ume, config.opts.brightness),
+    pink = hex_mod(M.palette.kosumosu, config.opts.brightness),
+    yellow = hex_mod(M.palette.yellow, config.opts.brightness),
+    red = hex_mod(M.palette.red, config.opts.brightness),
+    orange = hex_mod(M.palette.orange, config.opts.brightness),
+    cyan = hex_mod(M.palette.cyan, config.opts.brightness),
+    green = hex_mod(M.palette.green, config.opts.brightness),
+    blue = hex_mod(M.palette.blue, config.opts.brightness),
+
     -- purple = M.palette.ume,
-    pink = M.palette.kosumosu,
-    yellow = M.palette.yellow,
-    red = M.palette.red,
-    orange = M.palette.orange,
-    cyan = M.palette.cyan,
-    green = M.palette.green,
-    blue = M.palette.blue,
+    -- pink = M.palette.kosumosu,
+    -- yellow = M.palette.yellow,
+    -- red = M.palette.red,
+    -- orange = M.palette.orange,
+    -- cyan = M.palette.cyan,
+    -- green = M.palette.green,
+    -- blue = M.palette.blue,
 }
 
 return M

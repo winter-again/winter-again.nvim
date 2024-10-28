@@ -119,7 +119,11 @@ local function hsl_to_hex(hsl)
     return string.format("#%02x%02x%02x", rgb.r * 255, rgb.g * 255, rgb.b * 255)
 end
 
--- todo: just make a direct hex_to_hsl() that wraps hex_to_rgb()?
+---@param hex string
+---@return HSL
+local function hex_to_hsl(hex)
+    return rgb_to_hsl(hex_to_rgb(hex))
+end
 
 -- local foo = rgb_to_hsl(hex_to_rgb("#f0f0f0"))
 -- vim.print(foo)
@@ -134,7 +138,7 @@ end
 ---@param brightness number
 ---@return string
 local function hex_mod(hex, brightness)
-    local hsl = rgb_to_hsl(hex_to_rgb(hex))
+    local hsl = hex_to_hsl(hex)
     hsl.l = hsl.l + (1 - hsl.l) * brightness -- pct increase brightness
     return hsl_to_hex(hsl)
 end

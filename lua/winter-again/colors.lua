@@ -142,8 +142,9 @@ end
 ---@return string
 local function hex_mod(hex, saturation, brightness)
     local hsl = hex_to_hsl(hex)
-    hsl.s = hsl.s + (1 - hsl.s) * saturation
-    hsl.l = hsl.l + (1 - hsl.l) * brightness -- pct increase brightness, cap at 1
+    -- mod as pct of remaining diff, cap at 1
+    hsl.s = math.min(hsl.s + (1 - hsl.s) * saturation, 1)
+    hsl.l = math.min(hsl.l + (1 - hsl.l) * brightness, 1)
     return hsl_to_hex(hsl)
 end
 

@@ -1,5 +1,6 @@
 ---@class Config
 ---@field transparent? boolean
+---@field brightness? number
 ---@field text_styles? TextStyles
 
 ---@class TextStyles
@@ -32,6 +33,7 @@ local M = {}
 ---@type Config
 local default_opts = {
     transparent = true,
+    brightness = 0,
     text_styles = {
         booleans = { italic = true },
         comments = { italic = true },

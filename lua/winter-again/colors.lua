@@ -137,11 +137,13 @@ end
 
 --- Performs modifications on hex color code via HSL conversion
 ---@param hex string
+---@param saturation number
 ---@param brightness number
 ---@return string
-local function hex_mod(hex, brightness)
+local function hex_mod(hex, saturation, brightness)
     local hsl = hex_to_hsl(hex)
-    hsl.l = hsl.l + (1 - hsl.l) * brightness -- pct increase brightness
+    hsl.s = hsl.s + (1 - hsl.s) * saturation
+    hsl.l = hsl.l + (1 - hsl.l) * brightness -- pct increase brightness, cap at 1
     return hsl_to_hex(hsl)
 end
 
@@ -185,32 +187,32 @@ M.colors = {
     Magenta = "#ff00ff",
     Lime = "#00ff00",
 
-    fg = hex_mod(M.palette.fuyu, config.opts.brightness),
+    fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
     -- fg = palette.yuki, -- brighter
-    fg_mid = hex_mod(M.palette.tsuki, config.opts.brightness),
-    fg_dark = hex_mod(M.palette.okami, config.opts.brightness),
-    fg_comment = hex_mod(M.palette.amagumo, config.opts.brightness),
+    fg_mid = hex_mod(M.palette.tsuki, config.opts.saturation, config.opts.brightness),
+    fg_dark = hex_mod(M.palette.okami, config.opts.saturation, config.opts.brightness),
+    fg_comment = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.brightness),
 
-    bg = hex_mod(M.palette.yoru, config.opts.brightness),
-    bg_float = hex_mod(M.palette.kesseki, config.opts.brightness),
-    bg_visual = hex_mod(M.palette.tetsu, config.opts.brightness),
-    cursor_line = hex_mod(M.palette.iwa, config.opts.brightness),
+    bg = hex_mod(M.palette.yoru, config.opts.saturation, config.opts.brightness),
+    bg_float = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.brightness),
+    bg_visual = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.brightness),
+    cursor_line = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.brightness),
 
-    gray0 = hex_mod(M.palette.okami, config.opts.brightness),
-    gray1 = hex_mod(M.palette.gin, config.opts.brightness),
-    gray2 = hex_mod(M.palette.amagumo, config.opts.brightness),
-    gray3 = hex_mod(M.palette.tetsu, config.opts.brightness),
-    gray4 = hex_mod(M.palette.iwa, config.opts.brightness),
-    gray5 = hex_mod(M.palette.kesseki, config.opts.brightness),
+    gray0 = hex_mod(M.palette.okami, config.opts.saturation, config.opts.brightness),
+    gray1 = hex_mod(M.palette.gin, config.opts.saturation, config.opts.brightness),
+    gray2 = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.brightness),
+    gray3 = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.brightness),
+    gray4 = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.brightness),
+    gray5 = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.brightness),
 
-    purple = hex_mod(M.palette.ume, config.opts.brightness),
-    pink = hex_mod(M.palette.kosumosu, config.opts.brightness),
-    yellow = hex_mod(M.palette.yellow, config.opts.brightness),
-    red = hex_mod(M.palette.red, config.opts.brightness),
-    orange = hex_mod(M.palette.orange, config.opts.brightness),
-    cyan = hex_mod(M.palette.cyan, config.opts.brightness),
-    green = hex_mod(M.palette.green, config.opts.brightness),
-    blue = hex_mod(M.palette.blue, config.opts.brightness),
+    purple = hex_mod(M.palette.ume, config.opts.saturation, config.opts.brightness),
+    pink = hex_mod(M.palette.kosumosu, config.opts.saturation, config.opts.brightness),
+    yellow = hex_mod(M.palette.yellow, config.opts.saturation, config.opts.brightness),
+    red = hex_mod(M.palette.red, config.opts.saturation, config.opts.brightness),
+    orange = hex_mod(M.palette.orange, config.opts.saturation, config.opts.brightness),
+    cyan = hex_mod(M.palette.cyan, config.opts.saturation, config.opts.brightness),
+    green = hex_mod(M.palette.green, config.opts.saturation, config.opts.brightness),
+    blue = hex_mod(M.palette.blue, config.opts.saturation, config.opts.brightness),
 }
 
 return M

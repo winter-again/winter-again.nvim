@@ -119,6 +119,7 @@ local function hsl_to_hex(hsl)
     return string.format("#%02x%02x%02x", rgb.r * 255, rgb.g * 255, rgb.b * 255)
 end
 
+--- Converts hex color code to HSL color code
 ---@param hex string
 ---@return HSL
 local function hex_to_hsl(hex)
@@ -134,6 +135,7 @@ end
 -- vim.print(rgb_to_hsl(hex_to_rgb("#8f8aac")))
 -- vim.print(rgb_to_hsl(hex_to_rgb("#789978")))
 
+--- Performs modifications on hex color code via HSL conversion
 ---@param hex string
 ---@param brightness number
 ---@return string

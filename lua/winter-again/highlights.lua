@@ -396,7 +396,7 @@ M.sets = {
 
         -- treesitter-context
         TreesitterContext = { link = "Folded" },
-        TreesitterContextLineNumber = { fg = colors.gray0 },
+        TreesitterContextLineNumber = { fg = colors.gray0, bold = true },
 
         -- hlsearchlens
         HlSearchLens = { link = "Search" },
@@ -453,6 +453,7 @@ M.sets = {
         NvimTreeOpenedFolderName = { fg = colors.blue },
         NvimTreeImageFile = { fg = colors.yellow },
         NvimTreeFolderName = { fg = colors.fg_dark },
+        NvimTreeWindowPicker = { fg = colors.bg, bg = colors.blue },
 
         -- trouble
         TroubleText = { fg = colors.purple },

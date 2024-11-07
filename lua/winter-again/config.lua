@@ -3,6 +3,7 @@
 ---@field saturation? number
 ---@field brightness? number
 ---@field text_styles? TextStyles
+---@field hl_overrides? function
 
 ---@class TextStyles
 ---@field booleans? HlDefn
@@ -46,6 +47,7 @@ local default_opts = {
         statements = { bold = true },
         types = { italic = true },
     },
+    hl_overrides = function(highlights, colors) end,
 }
 
 ---@type Config

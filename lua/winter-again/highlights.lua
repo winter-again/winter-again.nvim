@@ -454,8 +454,11 @@ M.sets = {
 
     -- fzf-lua
     FzfLuaNormal = { fg = colors.fg_dark, bg = colors.bg_float },
-    -- FzfLuaCursorLine = { link = "CursorLine" },
-    -- FzfLuaCursorLineNr = { link = "CursorLineNr" },
+    FzfLuaFzfPrompt = { fg = colors.purple, bg = colors.bg_float },
+    FzfLuaHeaderText = { fg = colors.red, bg = colors.bg_float },
+    FzfLuaHeaderBind = { fg = colors.blue, bg = colors.bg_float },
+    FzfLuaCursorLine = { link = "CursorLine" },
+    FzfLuaCursorLineNr = { link = "CursorLineNr" },
 
     -- nvim-tree
     NvimTreeNormal = { fg = colors.fg_dark, bg = colors.bg_float },

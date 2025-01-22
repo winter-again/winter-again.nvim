@@ -55,7 +55,7 @@ M.sets = {
     CursorLineNr = { fg = colors.purple, bold = true }, -- Like LineNr when 'cursorline' or 'relativenumber' is set for the cursor line.
     -- CursorLineFold = {}, -- Like FoldColumn when 'cursorline' is set for the cursor line
     -- CursorLineSign = {}, -- Like SignColumn when 'cursorline' is set for the cursor line
-    MatchParen = { bold = true }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
+    MatchParen = { bg = colors.cursor_line, bold = true }, -- Character under the cursor or just before it, if it is a paired bracket, and its match. |pi_paren.txt|
     ModeMsg = { fg = colors.fg_dark }, -- 'showmode' message (e.g., "-- INSERT -- ")
     -- MsgArea = {}, -- Area for messages and cmdline
     -- MsgSeparator = {}, -- Separator for scrolled messages, `msgsep` flag of 'display'
@@ -87,8 +87,8 @@ M.sets = {
 
     SpellBad = { sp = colors.red, underdotted = true }, -- Word that is not recognized by the spellchecker. |spell| Combined with the highlighting used otherwise.
     SpellCap = { sp = colors.yellow, underdotted = true }, -- Word that should start with a capital. |spell| Combined with the highlighting used otherwise.
-    -- SpellLocal = {}, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
-    -- SpellRare = {}, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
+    SpellLocal = { sp = colors.red, underdotted = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
+    SpellRare = { sp = colors.red, underdotted = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 
     StatusLine = { fg = colors.fg, bg = colors.bg }, -- Status line of current window
     StatusLineNC = { fg = colors.fg, bg = colors.bg }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
@@ -200,8 +200,14 @@ M.sets = {
     qfLineNr = { fg = colors.fg_dark },
     qfFileName = { fg = colors.fg },
 
-    -- htmlH1 = { fg = colors.magenta, bold = true },
-    -- htmlH2 = { fg = colors.blue, bold = true },
+    htmlH1 = { link = "markdownH1" },
+    htmlH2 = { link = "markdownH2" },
+    htmlH3 = { link = "markdownH3" },
+    htmlH4 = { link = "markdownH4" },
+    htmlH5 = { link = "markdownH5" },
+    htmlItalic = { italic = true },
+    htmlLink = { link = "markdownUrl" },
+
     -- mkdHeading = { fg = colors.orange, bold = true },
     -- mkdCode = { bg = colors.terminal_black, fg = colors.fg },
     -- mkdCodeDelimiter = { bg = colors.terminal_black, fg = colors.fg },
@@ -209,11 +215,59 @@ M.sets = {
     -- mkdCodeEnd = { fg = colors.teal, bold = true },
     -- mkdLink = { fg = colors.blue, underline = true },
     -- markdownHeadingDelimiter = { fg = colors.orange, bold = true },
-    markdownCode = { fg = colors.green },
-    markdownCodeBlock = { fg = colors.green },
-    -- markdownH1 = { fg = colors.magenta, bold = true },
-    -- markdownH2 = { fg = colors.blue, bold = true },
-    -- markdownLinkText = { fg = colors.blue, underline = true },
+    markdownCode = { fg = colors.blue, bg = colors.bg_float },
+    -- markdownCodeBlock = { fg = colors.green },
+
+    markdownH1 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH1Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true }, -- the #s
+    markdownH2 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH2Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
+    markdownH3 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH3Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
+    markdownH4 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH4Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
+    markdownH5 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH5Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
+    markdownH6 = {
+        fg = colors.purple,
+        bg = config.opts.transparent and colors.none or colors.bg,
+        bold = true,
+        reverse = true,
+    },
+    markdownH6Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
+
+    -- markdownLink = {},
+    markdownLinkText = { fg = colors.purple, underline = true }, -- link label in markdown links
+    markdownLinkTextDelimiter = { link = "markdownLinkText" },
+    markdownUrl = { fg = colors.purple, italic = true }, -- URL in markdown links
+    markdownLinkDelimiter = { link = "markdownUrl" }, -- () around URL in markdown link
+    markdownWikiLink = { fg = colors.green },
+
     -- ['helpCommand'] = { bg = colors.terminal_black, fg = colors.blue },
     -- debugPC = { bg = colors.bg_sidebar }, -- used for highlighting the current line in terminal-debug
     -- debugBreakpoint = { bg = util.darken(colors.info, 0.1), fg = colors.info }, -- used for breakpoint colors in terminal-debug
@@ -297,27 +351,47 @@ M.sets = {
     -- ["@comment.todo"] = {}, -- todo-type comments (e.g., TODO, WIP)
     -- ["@comment.note"] = {}, -- note-type comments (e.g., NOTE, INFO, XXX)
 
-    ["@markup.strong"] = { bold = true }, -- bold text
-    ["@markup.italic"] = { italic = true }, -- italic text
-    ["@markup.strikethrough"] = { strikethrough = true }, -- struck-through text
+    ["@markup.strong"] = { fg = colors.pink, bold = true }, -- bold text
+    ["@markup.italic"] = { fg = colors.pink, italic = true }, -- italic text
+    ["@markup.strikethrough"] = { fg = colors.fg_dark, strikethrough = true }, -- struck-through text
     ["@markup.underline"] = { underline = true }, -- underlined text (only for literal underline markup!)
-    ["@markup.heading"] = { bold = true }, -- headings, titles (including markers)
-    -- ["@markup.heading.1"] = {}, -- top-level heading
-    -- ["@markup.heading.2"] = {}, -- section heading
-    -- ["@markup.heading.3"] = {}, -- subsection heading
-    -- ["@markup.heading.4"] = {}, -- and so on
-    -- ["@markup.heading.5"] = {}, -- and so forth
-    -- ["@markup.heading.6"] = {}, -- six levels ought to be enough for anybody
-    ["@markup.quote"] = { italic = true }, -- block quotes
-    ["@markup.math"] = { italic = true }, -- math environments (e.g., $ ... $ in LaTeX)
-    ["@markup.link"] = { italic = true }, -- text references, footnotes, citations, etc.
-    ["@markup.link.label"] = { link = "@markup.linnk" }, -- link, reference descriptions
-    ["@markup.link.url"] = { link = "@string.special.url" }, -- URL-style links
-    -- ["@markup.raw"] = {}, -- literal or verbatim text (e.g., inline code)
+
+    -- req custom queries in queries/markdown/highlights.scm
+    ["@markup.heading.1"] = { link = "markdownH1" }, -- headings, titles (including markers)
+    ["@markup.heading.1.marker"] = { link = "markdownH1Delimiter" }, -- top-level heading
+    ["@markup.heading.2"] = { link = "markdownH2" }, -- section heading
+    ["@markup.heading.2.marker"] = { link = "markdownH2Delimiter" },
+    ["@markup.heading.3"] = { link = "markdownH3" }, -- subsection heading
+    ["@markup.heading.3.marker"] = { link = "markdownH3Delimiter" },
+    ["@markup.heading.4"] = { link = "markdownH4" }, -- and so on
+    ["@markup.heading.4.marker"] = { link = "markdownH4Delimiter" },
+    ["@markup.heading.5"] = { link = "markdonH5" }, -- and so forth
+    ["@markup.heading.5.marker"] = { link = "markdownH5Delimiter" },
+    ["@markup.heading.6"] = { link = "markdownH6" }, -- six levels ought to be enough for anybody
+    ["@markup.heading.6.marker"] = { link = "markdownH6Delimiter" },
+
+    ["@markup.quote"] = { fg = colors.green, italic = true }, -- block quotes
+    ["@markup.math"] = { fg = colors.yellow }, -- math environments (e.g., $ ... $ in LaTeX)
+    -- ["@markup.link"] = {}, -- text references, footnotes, citations, etc.
+    ["@markup.link.label"] = { link = "markdownLinkText" }, -- link, reference descriptions (the link label for markdown links)
+    ["@markup.link.url"] = { link = "markdownUrl" }, -- URL-style links (the actual url for markdown link)
+    ["@markup.raw"] = { link = "markdownCode" }, -- literal or verbatim text (e.g., inline code)
     -- ["@markup.raw.block"] = {}, -- literal or verbatim text as a stand-alone block
+    --
+    ["@markup.wikilink.label"] = { link = "markdownWikiLink" },
+    ["@markup.wikilink.url"] = { fg = colors.green, italic = true },
+    -- HACK: override when marksman LSP active
+    ["@lsp.type.class.markdown"] = {},
+
+    -- custom
     ["@markup.list"] = { fg = colors.fg }, -- list markers
-    ["@markup.list.checked"] = { fg = colors.fg_dark }, -- checked todo-style list markers
-    ["@markup.list.unchecked"] = { fg = colors.fg }, -- unchecked todo-style list markers
+    ["@markup.list.checked"] = { fg = colors.fg_dark, strikethrough = true }, -- checked todo-style list markers -> top item only
+    ["@markup.list.checked_item"] = { fg = colors.fg_dark }, -- any nested text below
+    -- ["@markup.list.unchecked"] = {}, -- unchecked todo-style list markers
+
+    -- custom capture for markdown fenced code blocks
+    ["@codeblock.delim"] = { link = "@punctutation.delimiter" },
+    ["@codeblock.lang"] = { fg = colors.purple, italic = true },
 
     -- ["@diff.plus"] = {}, -- added text (for diff files)
     -- ["@diff.minus"] = {}, -- deleted text (for diff files)
@@ -347,6 +421,7 @@ M.sets = {
     ["@lsp.type.decorator"] = { link = "@attribute" },
     ["@lsp.type.enum"] = { link = "@type" },
     ["@lsp.type.enumMember"] = { link = "@constant" },
+
     ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
     ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
     ["@lsp.type.interface"] = { link = "@type" },
@@ -401,7 +476,7 @@ M.sets = {
     HlSearchLens = { link = "Search" },
 
     -- gitsigns
-    -- todo: change color shouldn't be blue?
+    -- TODO: change color shouldn't be blue?
     GitSignsAdd = { fg = colors.green },
     GitSignsChange = { fg = colors.blue },
     GitSignsDelete = { fg = colors.red },
@@ -453,12 +528,16 @@ M.sets = {
     TelescopeMatching = { fg = colors.purple }, -- matched chars
 
     -- fzf-lua
-    FzfLuaNormal = { fg = colors.fg_dark, bg = colors.bg_float },
+    FzfLuaNormal = { fg = colors.fg, bg = colors.bg_float },
     FzfLuaFzfPrompt = { fg = colors.purple, bg = colors.bg_float },
-    FzfLuaHeaderText = { fg = colors.red, bg = colors.bg_float },
+    FzfLuaHeaderText = { fg = colors.green, bg = colors.bg_float },
     FzfLuaHeaderBind = { fg = colors.blue, bg = colors.bg_float },
     FzfLuaCursorLine = { link = "CursorLine" },
     FzfLuaCursorLineNr = { link = "CursorLineNr" },
+
+    -- NOTE: these don't apply to rg output in live_grep
+    FzfLuaPathLineNr = { fg = colors.green },
+    FzfLuaPathColNr = { fg = colors.yellow },
 
     -- nvim-tree
     NvimTreeNormal = { fg = colors.fg_dark, bg = colors.bg_float },
@@ -519,6 +598,11 @@ M.sets = {
     -- incline
     InclineNormal = { fg = colors.fg_mid, bg = colors.bg, italic = true },
     InclineNormalNC = { fg = colors.fg_dark, bg = colors.bg, italic = true },
+
+    -- obsidian.nvim; requires ui to be enabled
+    ObsidianTag = { fg = colors.green, bold = true },
+    -- HACK: to highlight markdown tags with marksman LSP enabled
+    ["@lsp.type.enumMember.markdown"] = { link = "ObsidianTag" },
 }
 
 -- todo: improve

@@ -80,7 +80,7 @@ M.sets = {
     PmenuMatchSel = { bold = true }, -- Popup menu: Matched text in selected item Combined with hl-PmenuMatch and hl-PmenuSel
 
     Question = { fg = colors.blue }, -- |hit-enter| prompt and yes/no questions
-    -- QuickFixLine = {}, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
+    QuickFixLine = { fg = colors.purple }, -- Current |quickfix| item in the quickfix window. Combined with |hl-CursorLine| when the cursor is there.
     Search = { fg = colors.yellow, bg = colors.gray3 }, -- Last search pattern highlighting (see 'hlsearch'). Also used for similar items that need to stand out. Non-current search matches
     -- SnippetTabstop = {}, -- Tabstops in snippets
     -- SpecialKey = {}, -- Unprintable characters: text displayed differently from what it really is. But not 'listchars' whitespace. |hl-Whitespace|

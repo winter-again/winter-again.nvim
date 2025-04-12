@@ -488,6 +488,10 @@ M.sets = {
     IblIndent = { fg = colors.fg_comment },
     IblScope = { fg = colors.purple },
 
+    -- snacks.nvim indent
+    SnacksIndent = { fg = colors.fg_comment },
+    SnacksIndentScope = { fg = colors.purple },
+
     -- nvim-cmp (see :h cmp-highlight)
     CmpItemAbbr = { fg = colors.fg_dark }, -- unmatched characters of each completion field
     CmpItemAbbrDeprecated = { fg = colors.fg_comment, strikethrough = true }, -- unmatchedd characters of each deprecated completion field

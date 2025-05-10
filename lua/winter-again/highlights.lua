@@ -365,7 +365,7 @@ M.sets = {
     ["@markup.heading.3.marker"] = { link = "markdownH3Delimiter" },
     ["@markup.heading.4"] = { link = "markdownH4" }, -- and so on
     ["@markup.heading.4.marker"] = { link = "markdownH4Delimiter" },
-    ["@markup.heading.5"] = { link = "markdonH5" }, -- and so forth
+    ["@markup.heading.5"] = { link = "markdownH5" }, -- and so forth
     ["@markup.heading.5.marker"] = { link = "markdownH5Delimiter" },
     ["@markup.heading.6"] = { link = "markdownH6" }, -- six levels ought to be enough for anybody
     ["@markup.heading.6.marker"] = { link = "markdownH6Delimiter" },

@@ -511,7 +511,7 @@ M.sets = {
     BlinkCmpLabelMatch = { fg = colors.purple, bg = colors.none, bold = true }, -- (Apparently unused but works) Label of the completion item when it matches the query
     BlinkCmpLabelDetail = { fg = colors.fg_dark }, -- Label description of the completion item
     BlinkCmpLabelDescription = { fg = colors.fg_dark }, -- Label description of the completion item
-    BlinkCmpKind = { fg = colors.Magenta }, -- Kind icon/text of the completion item
+    BlinkCmpKind = { fg = colors.fg_dark }, -- Kind icon/text of the completion item
     BlinkCmpSource = { fg = colors.fg_dark }, -- source of the completion item
     BlinkCmpGhostText = { link = "NonText" }, -- preview item with ghost text
     BlinkCmpDoc = { fg = colors.fg_dark, bg = colors.bg_float }, -- documentation window
@@ -598,13 +598,6 @@ M.sets = {
     TodoFgFix = { fg = colors.red },
     TodoBgFix = { fg = colors.bg, bg = colors.red, bold = true },
 
-    -- alpha
-    -- AlphaHeader = { fg = colors.Magenta },
-    -- AlphaHeaderLabel = { fg = colors.Red },
-    -- AlphaShortcut = { fg = colors.Lime },
-    -- AlphaFooter = { fg = colors.Magenta },
-    -- AlphaButtons = { fg = colors.Lime },
-
     -- mason
     MasonNormal = { fg = colors.fg, bg = colors.bg_float },
     MasonHeader = { fg = colors.bg, bg = colors.purple },
@@ -628,8 +621,6 @@ M.sets = {
     ["@lsp.type.enumMember.markdown"] = { link = "ObsidianTag" },
 }
 
--- todo: improve
--- lsp symbol kind and completion kind highlights
 local kinds = {
     Array = "@punctuation.bracket",
     Boolean = "@boolean",
@@ -666,13 +657,15 @@ local kinds = {
     Variable = "@variable",
     Value = "@string",
 }
-local kind_groups = { "NavicIcons%s", "Aerial%sIcon", "CmpItemKind%s", "NoiceCompletionItemKind%s" }
+local kind_groups = { "BlinkCmpKind%s", "CmpItemKind%s" }
 
 for kind, link in pairs(kinds) do
-    local base = "LspKind" .. kind
-    M.sets[base] = { link = link }
+    -- keep in sync with lspkind
+    -- local base = "LspKind" .. kind
+    -- M.sets[base] = { link = link }
+
     for _, plugin in pairs(kind_groups) do
-        M.sets[plugin:format(kind)] = { link = base }
+        M.sets[plugin:format(kind)] = { link = link }
     end
 end
 

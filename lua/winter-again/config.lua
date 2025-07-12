@@ -46,7 +46,7 @@ local default_opts = {
         keywords = { bold = true },
         types = { italic = true },
     },
-    hl_overrides = function(highlights, colors) end,
+    hl_overrides = function(_, _) end,
 }
 
 ---@type Config

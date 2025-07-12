@@ -168,18 +168,19 @@ M.palette = {
     yellow = "#ab9a78",
     kaen = "#ac8a8c",
     red = "#b36d7c",
+    dusty_red = "#c48282",
     aki = "#c6a679",
     yuyake = "#ceb188",
     orange = "#c59a5f",
     mizu = "#8aacab",
-    cyan = "#708090", -- test
-    -- cyan = "#7b9695", -- test
     take = "#8aac8b",
     green = "#789978",
     shinkai = "#8a98ac",
     blue = "#7e97ab",
+    moon = "#aeaed1",
     -- bluelsf = "#7ba6de",
     -- bluewjsn = "#002f6c",
+    -- mint = "#b4d4cf",
 }
 
 M.colors = {
@@ -187,6 +188,8 @@ M.colors = {
     Red = "#ff0000",
     Magenta = "#ff00ff",
     Lime = "#00ff00",
+    moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.brightness),
+    kaen = hex_mod(M.palette.kaen, config.opts.saturation, config.opts.brightness),
 
     fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
     -- fg = palette.yuki, -- brighter
@@ -211,7 +214,6 @@ M.colors = {
     yellow = hex_mod(M.palette.yellow, config.opts.saturation, config.opts.brightness),
     red = hex_mod(M.palette.red, config.opts.saturation, config.opts.brightness),
     orange = hex_mod(M.palette.orange, config.opts.saturation, config.opts.brightness),
-    cyan = hex_mod(M.palette.cyan, config.opts.saturation, config.opts.brightness),
     green = hex_mod(M.palette.green, config.opts.saturation, config.opts.brightness),
     blue = hex_mod(M.palette.blue, config.opts.saturation, config.opts.brightness),
 }

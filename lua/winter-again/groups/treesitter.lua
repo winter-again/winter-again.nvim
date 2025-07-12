@@ -77,10 +77,10 @@ local M = {
     -- ["@comment.todo"] = {}, -- todo-type comments (e.g., TODO, WIP)
     -- ["@comment.note"] = {}, -- note-type comments (e.g., NOTE, INFO, XXX)
 
-    ["@markup.strong"] = { bold = true }, -- bold text
-    ["@markup.italic"] = { italic = true }, -- italic text
+    ["@markup.strong"] = { fg = colors.pink, bold = true }, -- bold text
+    ["@markup.italic"] = { fg = colors.pink, italic = true }, -- italic text
     ["@markup.strikethrough"] = { strikethrough = true }, -- struck-through text
-    ["@markup.underline"] = { underline = true }, -- underlined text (only for literal underline markup!)
+    ["@markup.underline"] = { fg = colors.pink, underline = true }, -- underlined text (only for literal underline markup!)
 
     -- req custom queries in queries/markdown/highlights.scm
     -- ["@markup.heading"] = {},

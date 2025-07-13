@@ -65,8 +65,6 @@ local function hl_kinds(highlights)
 end
 
 function M._set_highlights()
-    local hl_overrides = config.opts.hl_overrides
-
     -- TODO: ability to disable plugins in config?
     local highlights = {}
     for _, set in pairs(sets) do
@@ -75,8 +73,11 @@ function M._set_highlights()
         end
     end
 
+    local hl_overrides = config.opts.hl_overrides
     if hl_overrides ~= nil then
-        hl_overrides(highlights, colors)
+        for group, hl in pairs(hl_overrides(colors)) do
+            highlights[group] = vim.tbl_deep_extend("force", highlights[group] or {}, hl)
+        end
     end
 
     for group, hl in pairs(highlights) do

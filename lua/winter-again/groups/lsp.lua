@@ -86,7 +86,7 @@ local M = {
     ["@lsp.type.struct"] = { link = "@type" }, -- Identifiers that declare or reference a struct type
     ["@lsp.type.type"] = { link = "@type" }, -- Identifiers that declare or reference a type that is not covered above
     ["@lsp.type.typeParameter"] = { link = "@type.definition" }, --  Identifiers that declare or reference a type parameter
-    ["@lsp.type.variable"] = { link = "@constant" }, -- Identifiers that declare or reference a local or global variable
+    ["@lsp.type.variable"] = { link = "@variable" }, -- Identifiers that declare or reference a local or global variable
 
     ["@lsp.mod.abstract"] = {}, --        Types and member functions that are abstract
     ["@lsp.mod.async"] = {}, --           Functions that are marked async
@@ -98,6 +98,8 @@ local M = {
     ["@lsp.mod.modification"] = {}, --    Variable references where the variable is assigned to
     ["@lsp.mod.readonly"] = { link = "@constant" }, -- Readonly variables and member fields (constants)
     ["@lsp.mod.static"] = { link = "@constant" }, -- Class members (static members)
+
+    ["@lsp.mod.global"] = { link = "@constant" },
 
     -- ["@lsp.type.boolean"] = { link = "@boolean" },
     -- ["@lsp.type.builtinType"] = { link = "@type.builtin" },

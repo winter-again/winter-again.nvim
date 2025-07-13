@@ -126,15 +126,6 @@ local function hex_to_hsl(hex)
     return rgb_to_hsl(hex_to_rgb(hex))
 end
 
--- local foo = rgb_to_hsl(hex_to_rgb("#f0f0f0"))
--- vim.print(foo)
--- local bar = hsl_to_hex(foo)
--- vim.print(bar)
-
--- vim.print(rgb_to_hsl(hex_to_rgb("#262626")))
--- vim.print(rgb_to_hsl(hex_to_rgb("#8f8aac")))
--- vim.print(rgb_to_hsl(hex_to_rgb("#789978")))
-
 --- Performs modifications on hex color code via HSL conversion
 ---@param hex string
 ---@param saturation number
@@ -190,7 +181,7 @@ M.colors = {
     Magenta = "#ff00ff",
     Lime = "#00ff00",
     moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.brightness),
-    kaen = hex_mod(M.palette.kaen, config.opts.saturation, config.opts.brightness),
+    dusty_red = hex_mod(M.palette.dusty_red, config.opts.saturation, config.opts.brightness),
 
     fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
     -- fg = palette.yuki, -- brighter

@@ -3,7 +3,7 @@
 ---@field saturation? number
 ---@field brightness? number
 ---@field text_styles? TextStyles
----@field hl_overrides? function
+---@field hl_overrides? fun(colors: table): table<string, table>
 
 ---@class TextStyles
 ---@field booleans? HlDefn
@@ -46,7 +46,9 @@ local default_opts = {
         keywords = { bold = true },
         types = { italic = true },
     },
-    hl_overrides = function(_, _) end,
+    hl_overrides = function()
+        return {}
+    end,
 }
 
 ---@type Config

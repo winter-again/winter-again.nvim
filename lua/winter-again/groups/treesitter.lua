@@ -3,13 +3,13 @@ local colors = require("winter-again.colors").colors
 -- see https://neovim.io/doc/user/treesitter#treesitter-highlight-groups
 local M = {
     ["@variable"] = { link = "Identifier" }, -- various variable names (didn't match anything else)
-    ["@variable.builtin"] = { fg = colors.dusty_red, italic = true }, -- built-in variable names (e.g., this, self)
+    ["@variable.builtin"] = { fg = colors.moon, italic = true }, -- built-in variable names (e.g., this, self)
     ["@variable.parameter"] = { fg = colors.fg }, -- parameters of a function
     ["@variable.parameter.builtin"] = { fg = colors.fg }, -- special parameters (e.g., _, it)
     ["@variable.member"] = { fg = colors.blue }, -- object and struct fields.
 
     ["@constant"] = { link = "Constant" }, -- constant identifiers
-    ["@constant.builtin"] = { link = "Constant" }, -- built-in constant values
+    ["@constant.builtin"] = { fg = colors.dusty_red, italic = true }, -- built-in constant values
     ["@constant.macro"] = { link = "Constant" }, -- constants defined by the preprocessor
 
     ["@module"] = { fg = colors.blue, bold = true }, -- module or namespaces (like main in package main in Go)

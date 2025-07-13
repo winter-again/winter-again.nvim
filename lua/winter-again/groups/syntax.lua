@@ -5,7 +5,7 @@ local M = {
     -- These groups are not listed as default vim groups,
     -- but they are suggested group names for syntax highlighting.
     Comment = vim.tbl_deep_extend("force", { fg = colors.fg_comment }, config.opts.text_styles.comments), -- any comment
-    Constant = { fg = colors.moon }, -- (preferred) any constant
+    Constant = { fg = colors.moon, bold = true }, -- (preferred) any constant
     String = { fg = colors.green }, --   a string constant: "this is a string"
     Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
     Number = vim.tbl_deep_extend("force", { fg = colors.orange }, config.opts.text_styles.numbers), --   a number constant: 234, 0xff

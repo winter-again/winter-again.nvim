@@ -55,42 +55,36 @@ local M = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH1Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true }, -- the #s
     markdownH2 = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH2Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
     markdownH3 = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH3Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
     markdownH4 = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH4Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
     markdownH5 = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH5Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
     markdownH6 = {
         fg = colors.purple,
         bg = config.opts.transparent and colors.none or colors.bg,
         bold = true,
-        reverse = true,
     },
     markdownH6Delimiter = { fg = colors.purple, bg = config.opts.transparent and colors.none or colors.bg, bold = true },
 }

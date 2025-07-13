@@ -57,50 +57,72 @@ local M = {
     LspInfoBorder = { fg = colors.fg, bg = colors.bg_float },
 
     -- HACK: override when marksman LSP active
-    ["@lsp.type.class.markdown"] = {},
-    -- HACK: to highlight markdown tags with marksman LSP enabled
+    -- ["@lsp.type.class.markdown"] = {},
+    -- NOTE: tags in markdown
     ["@lsp.type.enumMember.markdown"] = { fg = colors.green, bold = true },
 
     -- LSP Semantic Token Groups (semantic highlighting)
-    ["@lsp.type.boolean"] = { link = "@boolean" },
-    ["@lsp.type.builtinType"] = { link = "@type.builtin" },
-    ["@lsp.type.comment"] = { link = "@comment" },
-    ["@lsp.type.decorator"] = { link = "@attribute" },
-    ["@lsp.type.enum"] = { link = "@type" },
-    ["@lsp.type.enumMember"] = { link = "@constant" },
+    -- standard captures from docs (:h lsp-semantic-highlight)
+    -- TODO: should not use @type because not specific enough?
+    ["@lsp.type.class"] = { link = "@type" }, -- Identifiers that declare or reference a class type
+    ["@lsp.type.comment"] = { link = "@comment" }, -- Tokens that represent a comment
+    ["@lsp.type.decorator"] = { link = "@attribute" }, -- Identifiers that declare or reference decorators and annotations
+    ["@lsp.type.enum"] = { link = "@type" }, -- Identifiers that declare or reference an enumeration type
+    ["@lsp.type.enumMember"] = { link = "@variable.member" }, -- Identifiers that declare or reference an enumeration property, constant, or member
+    ["@lsp.type.event"] = {}, -- Identifiers that declare an event property
+    ["@lsp.type.function"] = { link = "@function" }, -- Identifiers that declare a function
+    ["@lsp.type.interface"] = { link = "@type" }, -- Identifiers that declare or reference an interface type
+    ["@lsp.type.keyword"] = { link = "@keyword" }, -- Tokens that represent a language keyword
+    ["@lsp.type.macro"] = { link = "Macro" }, -- Identifiers that declare a macro
+    ["@lsp.type.method"] = { link = "@function.method" }, -- Identifiers that declare a member function or method
+    ["@lsp.type.modifier"] = {}, -- Tokens that represent a modifier
+    ["@lsp.type.namespace"] = { link = "@module" }, -- Identifiers that declare or reference a namespace, module, or package
+    ["@lsp.type.number"] = { link = "@number" }, -- Tokens that represent a number literal
+    ["@lsp.type.operator"] = { link = "@operator" }, -- Tokens that represent an operator
+    ["@lsp.type.parameter"] = { link = "@variable.parameter" }, -- Identifiers that declare or reference a function or method parameters
+    ["@lsp.type.property"] = { link = "@property" }, -- Identifiers that declare or reference a member property, member field, or member variable
+    ["@lsp.type.regexp"] = { link = "@string.regexp" }, -- Tokens that represent a regular expression literal
+    ["@lsp.type.string"] = { link = "@string" }, -- Tokens that represent a string literal
+    ["@lsp.type.struct"] = { link = "@type" }, -- Identifiers that declare or reference a struct type
+    ["@lsp.type.type"] = { link = "@type" }, -- Identifiers that declare or reference a type that is not covered above
+    ["@lsp.type.typeParameter"] = { link = "@type.definition" }, --  Identifiers that declare or reference a type parameter
+    ["@lsp.type.variable"] = { link = "@constant" }, -- Identifiers that declare or reference a local or global variable
 
-    ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
-    ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
-    ["@lsp.type.interface"] = { link = "@type" },
-    ["@lsp.type.keyword"] = { link = "@keyword" },
-    ["@lsp.type.lifetime"] = { link = "@keyword" },
-    ["@lsp.type.namespace"] = { link = "@module" },
-    ["@lsp.type.number"] = { link = "@number" },
-    ["@lsp.type.operator"] = { link = "@operator" },
-    ["@lsp.type.parameter"] = { link = "@variable.parameter" },
-    ["@lsp.type.property"] = { link = "@property" },
-    ["@lsp.type.selfKeyword"] = { link = "@variable.builtin" },
-    ["@lsp.type.selfTypeKeyword"] = { link = "@variable.builtin" },
-    ["@lsp.type.string"] = { link = "@string" },
-    ["@lsp.type.typeAlias"] = { link = "@type.definition" },
-    ["@lsp.type.unresolvedReference"] = { link = "Error" },
-    ["@lsp.type.variable"] = { link = "@variable" },
+    ["@lsp.mod.abstract"] = {}, --        Types and member functions that are abstract
+    ["@lsp.mod.async"] = {}, --           Functions that are marked async
+    ["@lsp.mod.declaration"] = {}, --     Declarations of symbols
+    ["@lsp.mod.defaultLibrary"] = {}, --  Symbols that are part of the standard library
+    ["@lsp.mod.definition"] = {}, --      Definitions of symbols, for example, in header files
+    ["@lsp.mod.deprecated"] = {}, --      Symbols that should no longer be used
+    ["@lsp.mod.documentation"] = {}, --   Occurrences of symbols in documentation
+    ["@lsp.mod.modification"] = {}, --    Variable references where the variable is assigned to
+    ["@lsp.mod.readonly"] = { link = "@constant" }, -- Readonly variables and member fields (constants)
+    ["@lsp.mod.static"] = { link = "@constant" }, -- Class members (static members)
 
-    ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.enumMember.defaultLibrary"] = { link = "@constant.builtin" },
-    ["@lsp.typemod.function.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.keyword.async"] = { link = "@keyword.coroutine" },
-    ["@lsp.typemod.macro.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.method.defaultLibrary"] = { link = "@function.builtin" },
-    ["@lsp.typemod.operator.injected"] = { link = "@operator" },
-    ["@lsp.typemod.string.injected"] = { link = "@string" },
-    ["@lsp.typemod.type.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.typeAlias.defaultLibrary"] = { link = "@type.builtin" },
-    ["@lsp.typemod.variable.callable"] = { link = "@function" },
-    ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
-    ["@lsp.typemod.variable.injected"] = { link = "@variable" },
-    ["@lsp.typemod.variable.static"] = { link = "@constant" },
+    -- ["@lsp.type.boolean"] = { link = "@boolean" },
+    -- ["@lsp.type.builtinType"] = { link = "@type.builtin" },
+    -- ["@lsp.type.escapeSequence"] = { link = "@string.escape" },
+    -- ["@lsp.type.formatSpecifier"] = { link = "@punctuation.special" },
+    -- ["@lsp.type.lifetime"] = { link = "@keyword" },
+    -- ["@lsp.type.selfKeyword"] = { link = "@variable.builtin" },
+    -- ["@lsp.type.selfTypeKeyword"] = { link = "@variable.builtin" },
+    -- ["@lsp.type.typeAlias"] = { link = "@type.definition" },
+    -- ["@lsp.type.unresolvedReference"] = { link = "Error" },
+    -- ["@lsp.typemod.class.defaultLibrary"] = { link = "@type.builtin" },
+    -- ["@lsp.typemod.enum.defaultLibrary"] = { link = "@type.builtin" },
+    -- ["@lsp.typemod.enumMember.defaultLibrary"] = { link = "@constant.builtin" },
+    -- ["@lsp.typemod.function.defaultLibrary"] = { link = "@function.builtin" },
+    -- ["@lsp.typemod.keyword.async"] = { link = "@keyword.coroutine" },
+    -- ["@lsp.typemod.macro.defaultLibrary"] = { link = "@function.builtin" },
+    -- ["@lsp.typemod.method.defaultLibrary"] = { link = "@function.builtin" },
+    -- ["@lsp.typemod.operator.injected"] = { link = "@operator" },
+    -- ["@lsp.typemod.string.injected"] = { link = "@string" },
+    -- ["@lsp.typemod.type.defaultLibrary"] = { link = "@type.builtin" },
+    -- ["@lsp.typemod.typeAlias.defaultLibrary"] = { link = "@type.builtin" },
+    -- ["@lsp.typemod.variable.callable"] = { link = "@function" },
+    -- ["@lsp.typemod.variable.defaultLibrary"] = { link = "@variable.builtin" },
+    -- ["@lsp.typemod.variable.injected"] = { link = "@variable" },
+    -- ["@lsp.typemod.variable.static"] = { link = "@constant" },
 }
 
 return M

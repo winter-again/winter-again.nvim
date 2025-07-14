@@ -9,7 +9,7 @@ local M = {
     ["@variable.member"] = { fg = colors.blue }, -- object and struct fields.
 
     ["@constant"] = { link = "Constant" }, -- constant identifiers
-    ["@constant.builtin"] = { fg = colors.dusty_red, italic = true }, -- built-in constant values
+    ["@constant.builtin"] = { fg = colors.red, italic = true }, -- built-in constant values
     ["@constant.macro"] = { link = "Constant" }, -- constants defined by the preprocessor
 
     ["@module"] = { fg = colors.blue, bold = true }, -- module or namespaces (like main in package main in Go)
@@ -103,7 +103,7 @@ local M = {
 
     ["@markup.quote"] = { fg = colors.green, italic = true }, -- block quotes
     ["@markup.math"] = { fg = colors.yellow }, -- math environments (e.g., $ ... $ in LaTeX)
-    -- ["@markup.link"] = {}, -- text references, footnotes, citations, etc.
+    ["@markup.link"] = { fg = colors.purple, italic = true }, -- text references, footnotes, citations, etc.
     ["@markup.link.label"] = { fg = colors.purple, underline = true }, -- link, reference descriptions (the link label for markdown links)
     ["@markup.link.url"] = { fg = colors.purple, italic = true }, -- URL-style links (the actual url for markdown link)
     ["@markup.raw"] = { fg = colors.blue, bg = colors.bg_float }, -- literal or verbatim text (e.g., inline code)

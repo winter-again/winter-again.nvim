@@ -26,7 +26,7 @@ local M = {
     Define = { link = "PreProc" }, --   preprocessor #define
     Macro = { link = "PreProc" }, --    same as Define
     PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
-    Type = vim.tbl_deep_extend("force", { fg = colors.blue }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
+    Type = vim.tbl_deep_extend("force", { fg = colors.pink }, config.opts.text_styles.types), -- (preferred) int, long, char, etcolors.
     -- StorageClass  = { }, -- static, register, volatile, etcolors.
     Structure = { link = "Type" }, --  struct, union, enum, etcolors.
     -- Typedef       = { }, --  A typedef

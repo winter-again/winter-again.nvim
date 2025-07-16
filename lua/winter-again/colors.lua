@@ -181,10 +181,9 @@ M.colors = {
     Magenta = "#ff00ff",
     Lime = "#00ff00",
     moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.brightness),
-    dusty_red = hex_mod(M.palette.dusty_red, config.opts.saturation, config.opts.brightness),
+    -- dusty_red = hex_mod(M.palette.dusty_red, config.opts.saturation, config.opts.brightness),
 
     fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
-    -- fg = palette.yuki, -- brighter
     fg_mid = hex_mod(M.palette.tsuki, config.opts.saturation, config.opts.brightness),
     fg_dark = hex_mod(M.palette.okami, config.opts.saturation, config.opts.brightness),
     fg_comment = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.brightness),

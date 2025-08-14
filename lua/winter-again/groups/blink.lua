@@ -11,7 +11,7 @@ local M = {
     BlinkCmpLabelMatch = { fg = colors.purple, bg = colors.none, bold = true }, -- (Apparently unused but works) Label of the completion item when it matches the query
     BlinkCmpLabelDetail = { fg = colors.fg_dark }, -- Label description of the completion item
     BlinkCmpLabelDescription = { fg = colors.fg_dark }, -- Label description of the completion item
-    BlinkCmpKind = { fg = colors.fg_dark }, -- Kind icon/text of the completion item
+    -- BlinkCmpKind = { fg = colors.fg_dark }, -- Kind icon/text of the completion item
     BlinkCmpSource = { fg = colors.fg_dark }, -- source of the completion item
     BlinkCmpGhostText = { link = "NonText" }, -- preview item with ghost text
     BlinkCmpDoc = { fg = colors.fg_dark, bg = colors.bg_float }, -- documentation window

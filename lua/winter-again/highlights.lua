@@ -27,11 +27,11 @@ function M._set_highlights()
         end
     end
 
+    kinds.hl_kinds(highlights)
+
     for group, hl in pairs(highlights) do
         set_highlight(group, hl)
     end
-
-    kinds.hl_kinds(highlights)
 end
 
 return M

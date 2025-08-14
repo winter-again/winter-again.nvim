@@ -53,7 +53,7 @@ local M = {
     ["@keyword"] = { link = "Keyword" }, -- keywords not fitting into specific categories
     ["@keyword.coroutine"] = { fg = colors.pink, bold = true }, -- keywords related to coroutines (e.g., go in Go, async/await in Python)
     ["@keyword.function"] = { fg = colors.pink, bold = true }, -- keywords that define a function (e.g., func in Go, def in Python)
-    ["@keyword.operator"] = { fg = colors.pink, italic = true }, -- operators that are English words (e.g., and, or, not)
+    ["@keyword.operator"] = { fg = colors.yellow, italic = true }, -- operators that are English words (e.g., and, or, not)
     ["@keyword.import"] = { link = "PreProc" }, -- keywords for including or exporting modules (e.g., import, from in Python)
     ["@keyword.type"] = { fg = colors.pink }, -- keywords describing namespaces and composite types (e.g., struct, enum)
     ["@keyword.modifier"] = { fg = colors.purple, bold = true }, -- keywords modifying other constructs (e.g., const, static, public)

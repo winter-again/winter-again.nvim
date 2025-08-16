@@ -3,7 +3,7 @@ local colors = require("winter-again.colors").colors
 local M = {
     BlinkCmpMenu = { bg = colors.bg_float }, -- The completion menu window
     BlinkCmpMenuBorder = { bg = colors.bg_float }, -- The completion menu window border
-    BlinkCmpMenuSelection = { bg = colors.bg_visual }, -- The completion menu window selected item
+    BlinkCmpMenuSelection = { link = "PmenuSel" }, -- The completion menu window selected item
     BlinkCmpScrollBarThumb = { link = "PmenuThumb" }, -- The scrollbar thumb
     BlinkCmpScrollBarGutter = { link = "PmenuSbar" },
     BlinkCmpLabel = { fg = colors.fg_dark, bg = colors.none }, -- Label of the completion item

@@ -1,3 +1,5 @@
+local colors = require("winter-again.colors").colors
+
 local kinds = {
     Array = "@punctuation.bracket",
     Boolean = "@boolean",
@@ -41,11 +43,13 @@ local cmp_plugins = {
 
 local M = {}
 
----@param highlights table
-function M.hl_kinds(highlights)
+function M.set_kind_highlights()
     for kind, link in pairs(kinds) do
         for _, plugin in pairs(cmp_plugins) do
-            highlights[plugin:format(kind)] = { link = link }
+            -- hacky because relies on linked highlight being set first
+            local hl = plugin:format(kind)
+            local hl_link = vim.api.nvim_get_hl(0, { name = link, link = false })
+            vim.api.nvim_set_hl(0, hl, { fg = hl_link.fg, bg = colors.none })
         end
         -- keep in sync with lspkind
         -- local base = "LspKind" .. kind

@@ -41,7 +41,7 @@ local M = {
     Italic = { italic = true },
     -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
     Error = { fg = colors.red }, -- (preferred) any erroneous construct
-    Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords ODO FIXME and XXX
+    Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
 
     htmlH1 = { link = "markdownH1" },
     htmlH2 = { link = "markdownH2" },

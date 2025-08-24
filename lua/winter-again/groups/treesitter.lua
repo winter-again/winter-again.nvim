@@ -107,7 +107,7 @@ local M = {
     ["@markup.link.label"] = { fg = colors.purple, underline = true }, -- link, reference descriptions (the link label for markdown links)
     ["@markup.link.url"] = { fg = colors.purple, italic = true }, -- URL-style links (the actual url for markdown link)
     ["@markup.raw"] = { fg = colors.blue, bg = colors.bg_float }, -- literal or verbatim text (e.g., inline code)
-    -- ["@markup.raw.block"] = {}, -- literal or verbatim text as a stand-alone block
+    ["@markup.raw.block"] = { bg = colors.none }, -- literal or verbatim text as a stand-alone block
     -- req custom queries queries/markdown_inline/highlights.scm
     ["@markup.wikilink.label"] = { fg = colors.green },
     ["@markup.wikilink.url"] = { fg = colors.green, italic = true },

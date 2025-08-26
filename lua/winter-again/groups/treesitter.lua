@@ -114,7 +114,7 @@ local M = {
 
     -- custom capture for markdown fenced code blocks
     ["@codeblock.delim"] = { link = "@punctutation.delimiter" },
-    ["@codeblock.lang"] = { fg = colors.purple, italic = true },
+    ["@codeblock.lang"] = { fg = colors.blue, italic = true },
 
     ["@diff.plus"] = { link = "DiffAdd" }, -- added text (for diff files)
     ["@diff.minus"] = { link = "DiffDelete" }, -- deleted text (for diff files)

@@ -96,10 +96,9 @@ local M = {
     ["@markup.heading.5.marker"] = { link = "markdownH5Delimiter" },
     ["@markup.heading.6"] = { link = "markdownH6" }, -- six levels ought to be enough for anybody
     ["@markup.heading.6.marker"] = { link = "markdownH6Delimiter" },
-    -- ["@markup.list"] = { fg = colors.fg }, -- list markers
+    -- ["@markup.list"] = {}, -- list markers
     ["@markup.list.checked"] = { fg = colors.fg_dark, strikethrough = true }, -- checked todo-style list markers -> top item only
-    ["@markup.list.checked_item"] = { fg = colors.fg_dark }, -- any nested text below
-    -- ["@markup.list.unchecked"] = {}, -- unchecked todo-style list markers
+    ["@markup.list.unchecked"] = { fg = colors.blue }, -- unchecked todo-style list markers
 
     ["@markup.quote"] = { fg = colors.green, italic = true }, -- block quotes
     ["@markup.math"] = { fg = colors.yellow }, -- math environments (e.g., $ ... $ in LaTeX)

@@ -204,7 +204,7 @@ M.colors = {
 
     purple = hex_mod(M.palette.ume, config.opts.saturation, config.opts.brightness),
     pink = hex_mod(M.palette.kosumosu, config.opts.saturation, config.opts.brightness),
-    yellow = hex_mod(M.palette.yellow, config.opts.saturation, config.opts.brightness),
+    yellow = hex_mod(M.palette.chikyu, config.opts.saturation, config.opts.brightness),
     red = hex_mod(M.palette.red, config.opts.saturation, config.opts.brightness),
     red_diff = hex_mod(M.palette.red, config.opts.saturation, -0.8),
     orange = hex_mod(M.palette.aki, config.opts.saturation, config.opts.brightness),

@@ -170,6 +170,7 @@ M.palette = {
     -- green = "#789978",
     green = "#778c73", -- duller
     shinkai = "#8a98ac",
+    kori = "#a5b4cb",
     blue = "#7e97ab",
     moon = "#aeaed1",
     -- bluelsf = "#7ba6de",

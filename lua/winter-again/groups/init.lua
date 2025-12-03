@@ -12,6 +12,7 @@ local M = {
     -- mason = require("winter-again.groups.lsp"),
     -- nvim_tree = require("winter-again.groups.nvim-tree"),
     oil = require("winter-again.groups.oil"),
+    statusline = require("winter-again.groups.statusline"),
     syntax = require("winter-again.groups.syntax"),
     -- telescope = require("winter-again.groups.telescope"),
     todo_comments = require("winter-again.groups.todo-comments"),

@@ -69,8 +69,8 @@ local M = {
     SpellLocal = { sp = colors.red, undercurl = true }, -- Word that is recognized by the spellchecker as one that is used in another region. |spell| Combined with the highlighting used otherwise.
     SpellRare = { sp = colors.red, undercurl = true }, -- Word that is recognized by the spellchecker as one that is hardly ever used. |spell| Combined with the highlighting used otherwise.
 
-    StatusLine = { fg = colors.fg, bg = colors.bg }, -- Status line of current window
-    StatusLineNC = { link = "StatusLine" }, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
+    -- StatusLine = {}, -- Status line of current window
+    -- StatusLineNC = {}, -- Status lines of not-current windows. Note: If this is equal to "StatusLine" Vim will use "^^^" in the status line of the current window.
     -- StatusLineTerm = {}, -- Status line of terminal window
     -- StatusLineTermNC = {}, -- Status line of non-current terminal window
 

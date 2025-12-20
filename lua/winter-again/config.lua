@@ -1,4 +1,6 @@
----@class Config
+local M = {}
+
+---@class Options
 ---@field transparent? boolean
 ---@field saturation? number
 ---@field brightness? number
@@ -6,16 +8,16 @@
 ---@field hl_overrides? fun(colors: table): table<string, table>
 
 ---@class TextStyles
----@field booleans? HlDefn
----@field comments? HlDefn
----@field floats? HlDefn
----@field functions? HlDefn
----@field numbers? HlDefn
----@field keywords? HlDefn
----@field statements? HlDefn
----@field types? HlDefn
+---@field booleans? Highlight
+---@field comments? Highlight
+---@field floats? Highlight
+---@field functions? Highlight
+---@field numbers? Highlight
+---@field keywords? Highlight
+---@field statements? Highlight
+---@field types? Highlight
 
----@class HlDefn
+---@class Highlight
 ---@field fg? string
 ---@field bg? string
 ---@field sp? integer
@@ -30,10 +32,8 @@
 ---@field italic? boolean
 ---@field reverse? boolean
 
-local M = {}
-
----@type Config
-local default_opts = {
+---@type Options
+local defaults = {
     transparent = true,
     saturation = 0,
     brightness = 0,
@@ -46,17 +46,15 @@ local default_opts = {
         keywords = { bold = true },
         types = { italic = true },
     },
-    hl_overrides = function()
-        return {}
-    end,
+    hl_overrides = nil,
 }
 
----@type Config
-M.opts = {}
+---@type Options
+M.opts = defaults
 
----@param opts Config
-function M._load(opts)
-    M.opts = vim.tbl_deep_extend("force", default_opts, opts)
+---@param opts? Options
+function M.load_config(opts)
+    M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
 end
 
 return M

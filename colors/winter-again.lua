@@ -1,1 +1,1 @@
-require("winter-again")._load()
+require("winter-again").load()

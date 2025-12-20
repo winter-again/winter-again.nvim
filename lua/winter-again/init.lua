@@ -2,7 +2,15 @@ local config = require("winter-again.config")
 
 local M = {}
 
-function M._load()
+-- NOTE: M.setup() called, then colors/winter-again.lua which runs M.load()
+
+---@param opts? Options
+function M.setup(opts)
+    opts = opts or {}
+    config.load_config(opts)
+end
+
+function M.load()
     if vim.g.colors_name then
         vim.cmd("hi clear")
     end
@@ -10,13 +18,8 @@ function M._load()
     vim.g.colors_name = "winter-again"
     vim.opt.termguicolors = true
 
-    require("winter-again.highlights")._set_highlights()
-end
-
----@param opts? Config
-function M.setup(opts)
-    opts = opts or {}
-    config._load(opts)
+    -- NOTE: must require here to properly load config
+    require("winter-again.highlights").set_highlights()
 end
 
 return M

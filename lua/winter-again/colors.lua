@@ -1,3 +1,5 @@
+local config = require("winter-again.config")
+
 ---@class HSL
 ---@field h number
 ---@field s number
@@ -7,9 +9,6 @@
 ---@field r number
 ---@field g number
 ---@field b number
-
--- fine to import here again?
-local config = require("winter-again.config")
 
 local M = {}
 
@@ -184,7 +183,6 @@ M.colors = {
     Magenta = "#ff00ff",
     Lime = "#00ff00",
     moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.brightness),
-    -- dusty_red = hex_mod(M.palette.dusty_red, config.opts.saturation, config.opts.brightness),
 
     fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
     fg_mid = hex_mod(M.palette.tsuki, config.opts.saturation, config.opts.brightness),

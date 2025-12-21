@@ -1,6 +1,7 @@
 local colors = require("winter-again.colors").colors
 local opts = require("winter-again.config").opts
 
+---@type table<string, string>
 local kinds = {
     Array = "@punctuation.bracket",
     Boolean = "@boolean",
@@ -39,24 +40,26 @@ local kinds = {
 }
 
 -- NOTE: hacky because this relies on linked highlights being set first
+
+--- Set BlinkCmpKind<...> highlights
 local function set_kind_highlights()
     for kind, link in pairs(kinds) do
-        local cmp = "BlinkCmpKind%s"
-        local hl = cmp:format(kind)
+        local hl = ("BlinkCmpKind%s"):format(kind)
         local hl_link = vim.api.nvim_get_hl(0, { name = link, link = false })
-        -- only use fg color
-        vim.api.nvim_set_hl(0, hl, { fg = hl_link.fg, bg = colors.none })
+        vim.api.nvim_set_hl(0, hl, { fg = hl_link.fg, bg = colors.none }) -- only retain fg color
     end
 end
 
----@param default Highlight
----@param config table
----@return table
-local function override_hl(default, config)
+--- Override specific text settings for the given highlight definition
+---@param default vim.api.keyset.highlight The default highlight definition
+---@param config TextStyle A subset of highlight definition overrides
+---@return vim.api.keyset.highlight
+local function override_textstyle(default, config)
     return vim.tbl_deep_extend("force", default, config)
 end
 
 -- see :h highlight
+---@type table<string, table<string, vim.api.keyset.highlight>>
 local highlights = {
     -- builtin editor highlight groups
     -- :h highlight-groups
@@ -377,40 +380,40 @@ local highlights = {
     syntax = {
         -- Suggested syntax highlight group names
         -- :h group-name
-        Comment = override_hl({ fg = colors.fg_comment }, opts.text_styles.comments), -- any comment
+        Comment = override_textstyle({ fg = colors.fg_comment }, opts.text_styles.comments), -- any comment
         Constant = { fg = colors.moon, bold = true }, -- (preferred) any constant
         String = { fg = colors.green }, --   a string constant: "this is a string"
         Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
-        Number = override_hl({ fg = colors.orange }, opts.text_styles.numbers), --   a number constant: 234, 0xff
-        Boolean = override_hl({ fg = colors.yellow }, opts.text_styles.booleans), --  a boolean constant: TRUE, false
-        Float = override_hl({ fg = colors.orange }, opts.text_styles.floats), -- a floating point constant: 2.3e10
+        Number = override_textstyle({ fg = colors.orange }, opts.text_styles.numbers), --   a number constant: 234, 0xff
+        Boolean = override_textstyle({ fg = colors.yellow }, opts.text_styles.booleans), --  a boolean constant: TRUE, false
+        Float = override_textstyle({ fg = colors.orange }, opts.text_styles.floats), -- a floating point constant: 2.3e10
         Identifier = { fg = colors.fg }, -- (preferred) any variable name
-        Function = override_hl({ fg = colors.purple }, opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
+        Function = override_textstyle({ fg = colors.purple }, opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
         Statement = { fg = colors.pink }, -- (preferred) any statement
         Conditional = { fg = colors.blue, bold = true }, --  if, then, else, endif, switch, etcolors.
         Repeat = { link = "Conditional" }, --   for, do, while, etcolors. (TS: @keyword.repeat)
         -- Label = {}, --    case, default, etcolors.
         Operator = { fg = colors.fg_dark }, -- "sizeof", "+", "*", etcolors. (also "==", "=", "->")
         -- NOTE: Keyword seems to take precedent over Statement
-        Keyword = override_hl({ fg = colors.pink }, opts.text_styles.keywords), --  any other keyword like "local" in Lua and import in Python/Go
+        Keyword = override_textstyle({ fg = colors.pink }, opts.text_styles.keywords), --  any other keyword like "local" in Lua and import in Python/Go
         Exception = { link = "Keyword" }, --  try, catch, throw
         PreProc = { fg = colors.purple }, -- (preferred) generic Preprocessor
         Include = { link = "PreProc" }, --  preprocessor #include
         Define = { link = "PreProc" }, --   preprocessor #define
         Macro = { link = "PreProc" }, --    same as Define
         PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
-        Type = override_hl({ fg = colors.pink }, opts.text_styles.types), -- (preferred) int, long, char, etcolors.
-        -- StorageClass  = { }, -- static, register, volatile, etcolors.
+        Type = override_textstyle({ fg = colors.pink }, opts.text_styles.types), -- (preferred) int, long, char, etcolors.
+        -- StorageClass  = {}, -- static, register, volatile, etcolors.
         Structure = { link = "Type" }, --  struct, union, enum, etcolors.
-        -- Typedef       = { }, --  A typedef
+        -- Typedef       = {}, --  A typedef
         Special = { fg = colors.blue }, -- (preferred) any special symbol
-        -- SpecialChar   = { }, --  special character in a constant
+        -- SpecialChar   = {}, --  special character in a constant
         Tag = { fg = colors.blue }, --    you can use CTRL-] on this
         Delimiter = { fg = colors.fg_dark }, --  character that needs attention
-        -- SpecialComment= { }, -- special things inside a comment
-        -- Debug = { fg = colors.yellow }, --    debugging statements
+        -- SpecialComment= {}, -- special things inside a comment
+        -- Debug = {}, --    debugging statements
         Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
-        -- Ignore = { }, -- (preferred) left blank, hidden  |hl-Ignore|
+        -- Ignore = {}, -- (preferred) left blank, hidden  |hl-Ignore|
         Error = { fg = colors.red }, -- (preferred) any erroneous construct
         Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
         Added = { link = "DiffAdd" },
@@ -617,14 +620,8 @@ local highlights = {
         ["@tag.builtin"] = { fg = colors.red }, -- builtin tag names (e.g., HTML5 tags)
         ["@tag.attribute"] = { link = "Function" }, -- XML-style tag attributes
         ["@tag.delimiter"] = { link = "Delimiter" }, -- XML-style tag delimiters
-
-        -- req custom queries queries/markdown_inline/highlights.scm
-        ["@markup.wikilink.label"] = { fg = colors.green },
-        ["@markup.wikilink.url"] = { fg = colors.green, italic = true },
-        -- req custom capture for markdown fenced code blocks
-        ["@codeblock.delim"] = { link = "@punctutation.delimiter" },
-        ["@codeblock.lang"] = { fg = colors.blue, italic = true },
-
+    },
+    treesitter_context = {
         TreesitterContext = { link = "Folded" },
         TreesitterContextLineNumber = { fg = colors.gray0, bold = true },
     },
@@ -638,13 +635,16 @@ local highlights = {
 
 local M = {}
 
+--- Wrapper function for setting highlights
 ---@param group string
----@param hl table
+---@param hl vim.api.keyset.highlight
 local function set_highlight(group, hl)
     vim.api.nvim_set_hl(0, group, hl)
 end
 
+--- Set all colorscheme highlights
 function M.set_highlights()
+    ---@type table<string, vim.api.keyset.highlight>
     local highlights_flat = {}
     for _, set in pairs(highlights) do
         for group, hl in pairs(set) do
@@ -654,9 +654,7 @@ function M.set_highlights()
 
     local hl_overrides = opts.hl_overrides
     if hl_overrides ~= nil then
-        for group, hl in pairs(hl_overrides(colors)) do
-            highlights_flat[group] = vim.tbl_deep_extend("force", highlights_flat[group] or {}, hl)
-        end
+        hl_overrides(highlights_flat, colors)
     end
 
     for group, hl in pairs(highlights_flat) do
@@ -664,7 +662,7 @@ function M.set_highlights()
     end
 
     -- NOTE: this relies on the main highlights being set
-    -- set_kind_highlights()
+    set_kind_highlights()
 end
 
 return M

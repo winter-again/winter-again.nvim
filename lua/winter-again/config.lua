@@ -3,24 +3,21 @@ local M = {}
 ---@class Options
 ---@field transparent? boolean
 ---@field saturation? number
----@field brightness? number
+---@field lightness? number
 ---@field text_styles? TextStyles
----@field hl_overrides? fun(colors: table): table<string, table>
+---@field hl_overrides? fun(highlights: table<string, vim.api.keyset.highlight>, colors: table<string, string>)
 
 ---@class TextStyles
----@field booleans? Highlight
----@field comments? Highlight
----@field floats? Highlight
----@field functions? Highlight
----@field numbers? Highlight
----@field keywords? Highlight
----@field statements? Highlight
----@field types? Highlight
+---@field booleans? TextStyle
+---@field comments? TextStyle
+---@field floats? TextStyle
+---@field functions? TextStyle
+---@field numbers? TextStyle
+---@field keywords? TextStyle
+---@field statements? TextStyle
+---@field types? TextStyle
 
----@class Highlight
----@field fg? string
----@field bg? string
----@field sp? integer
+---@class TextStyle
 ---@field bold? boolean
 ---@field standout? boolean
 ---@field underline? boolean
@@ -36,7 +33,7 @@ local M = {}
 local defaults = {
     transparent = true,
     saturation = 0,
-    brightness = 0,
+    lightness = 0,
     text_styles = {
         booleans = { italic = true },
         comments = { italic = true },
@@ -52,9 +49,10 @@ local defaults = {
 ---@type Options
 M.opts = defaults
 
+--- Load colorscheme configuration and handle user overrides
 ---@param opts? Options
 function M.load_config(opts)
-    M.opts = vim.tbl_deep_extend("force", M.opts, opts or {})
+    M.opts = vim.tbl_deep_extend("force", M.opts, opts)
 end
 
 return M

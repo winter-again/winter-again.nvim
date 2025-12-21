@@ -1,13 +1,15 @@
-local config = require("winter-again.config")
-
 local M = {}
 
--- NOTE: M.setup() called, then colors/winter-again.lua which runs M.load()
+-- NOTE: order of execution:
+-- M.setup()
+-- config.load_config()
+-- colors/winter-again.lua: M.load()
+-- highlights.set_highlights()
 
 ---@param opts? Options
 function M.setup(opts)
     opts = opts or {}
-    config.load_config(opts)
+    require("winter-again.config").load_config(opts)
 end
 
 function M.load()

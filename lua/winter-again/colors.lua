@@ -1,5 +1,9 @@
 local config = require("winter-again.config")
 
+local M = {}
+
+---@alias Hex string
+
 ---@class HSL
 ---@field h number
 ---@field s number
@@ -10,87 +14,74 @@ local config = require("winter-again.config")
 ---@field g number
 ---@field b number
 
-local M = {}
-
-local hex_chars = "0123456789abcdef"
-
---- Converts hex color code to RGB
----@param hex string
+--- Convert hex to RGB
+---@param hex Hex
 ---@return RGB
-local function hex_to_rgb(hex)
-    hex = string.lower(hex):gsub("#", "")
-    local keys = { "r", "g", "b" }
-    local rgb = {}
-    for i = 0, 2 do
-        local char0 = string.sub(hex, 2 * i + 1, 2 * i + 1)
-        local char1 = string.sub(hex, 2 * i + 2, 2 * i + 2)
-        local num0 = string.find(hex_chars, char0) - 1
-        local num1 = string.find(hex_chars, char1) - 1
-        rgb[keys[i + 1]] = num0 * 16 + num1
-    end
+function M.hex_to_rgb(hex)
+    hex = hex:gsub("#", ""):lower()
+
+    local rgb = {
+        r = tonumber(hex:sub(1, 2), 16),
+        g = tonumber(hex:sub(3, 4), 16),
+        b = tonumber(hex:sub(5, 6), 16),
+    }
     return rgb
 end
 
---- Converts RGB color code to HSL
+--- Convert RGB color to HSL
 ---@param rgb RGB
 ---@return HSL
-local function rgb_to_hsl(rgb)
-    local hsl = {}
-    local r = rgb.r / 255
-    local g = rgb.g / 255
-    local b = rgb.b / 255
+function M.rgb_to_hsl(rgb)
+    local r = rgb.r / 255.0
+    local g = rgb.g / 255.0
+    local b = rgb.b / 255.0
 
     local c_min = math.min(r, g, b)
     local c_max = math.max(r, g, b)
     local chroma = c_max - c_min
 
-    local hue
+    local h_prime
     if chroma == 0 then
-        hue = 0
-    else
-        if c_max == r then
-            -- hue = math.fmod((g - b) / chroma, 6)
-            if g < b then
-                hue = (g - b) / chroma + 6
-            else
-                hue = (g - b) / chroma
-            end
-        elseif c_max == g then
-            hue = (b - r) / chroma + 2
-        elseif c_max == b then
-            hue = (r - g) / chroma + 4
-        end
+        h_prime = 0
+    elseif c_max == r then
+        h_prime = ((g - b) / chroma) % 6
+    elseif c_max == g then
+        h_prime = (b - r) / chroma + 2
+    elseif c_max == b then
+        h_prime = (r - g) / chroma + 4
     end
-    hsl.h = hue * 60
+    local hue = h_prime * 60
 
-    -- HSL bi-hexcone model = avg of largest and smallest
-    local lightness = (c_max + c_min) / 2
-    hsl.l = lightness
+    local lightness = (c_min + c_max) / 2
 
     local saturation
-    -- if lightness <= 0.5 then
-    --     saturation = chroma / (c_min + c_max)
-    -- else
-    --     saturation = chroma / (2 - c_max - c_min)
-    -- end
-    if lightness == 1 or lightness == 0 then
+    if lightness == 0 or lightness == 1 then
         saturation = 0
     else
         saturation = chroma / (1 - math.abs(2 * lightness - 1))
     end
-    hsl.s = saturation
 
+    local hsl = {
+        h = hue,
+        s = saturation,
+        l = lightness,
+    }
     return hsl
 end
 
+--- Convert HSL color to RGB
 ---@param hsl HSL
 ---@return RGB
-local function hsl_to_rgb(hsl)
-    local r, g, b
-    local chroma = (1 - math.abs(2 * hsl.l - 1)) * hsl.s
-    local h_prime = hsl.h / 60
-    local x = chroma * (1 - math.abs(math.fmod(h_prime, 2) - 1))
+function M.hsl_to_rgb(hsl)
+    local h = hsl.h
+    local s = hsl.s
+    local l = hsl.l
 
+    local chroma = (1 - math.abs(2 * l - 1)) * s
+    local h_prime = h / 60
+    local x = chroma * (1 - math.abs(h_prime % 2 - 1))
+
+    local r, g, b
     if 0 <= h_prime and h_prime < 1 then
         r, g, b = chroma, x, 0
     elseif 1 <= h_prime and h_prime < 2 then
@@ -105,111 +96,126 @@ local function hsl_to_rgb(hsl)
         r, g, b = chroma, 0, x
     end
 
-    local m = hsl.l - (chroma / 2)
-    r, g, b = r + m, g + m, b + m
-    return { r = r, g = g, b = b }
+    local m = l - (chroma / 2)
+    local rgb = {
+        r = r + m,
+        g = g + m,
+        b = b + m,
+    }
+    return rgb
 end
 
---- Converts HSL color code to hex code
+--- Convert HSL color to hex color
 ---@param hsl HSL
 ---@return string
-local function hsl_to_hex(hsl)
-    local rgb = hsl_to_rgb(hsl)
-    return string.format("#%02x%02x%02x", rgb.r * 255, rgb.g * 255, rgb.b * 255)
+function M.hsl_to_hex(hsl)
+    local rgb = M.hsl_to_rgb(hsl)
+    return ("#%02x%02x%02x"):format(rgb.r * 255, rgb.g * 255, rgb.b * 255)
 end
 
---- Converts hex color code to HSL color code
----@param hex string
+--- Convert hex code color to HSL
+---@param hex Hex
 ---@return HSL
-local function hex_to_hsl(hex)
-    return rgb_to_hsl(hex_to_rgb(hex))
+function M.hex_to_hsl(hex)
+    return M.rgb_to_hsl(M.hex_to_rgb(hex))
 end
 
--- TODO: need more intuitive function
-
---- Performs modifications on hex color code via HSL conversion
----@param hex string
----@param saturation number
----@param brightness number
+--- Modify hex color code saturation and lightness via HSL conversion
+--- For example, hex_mod("#f0f0f0", 0, -0.5) would darken the hex code by 0.5
+---@param hex Hex Hex code to modify
+---@param saturation number Change in saturation. Saturation ranges [0, 1].
+---@param lightness number Change in lightness. Lightness ranges [0, 1].
 ---@return string
-local function hex_mod(hex, saturation, brightness)
-    local hsl = hex_to_hsl(hex)
-    -- mod as pct of remaining diff, cap at 1
-    hsl.s = math.min(hsl.s + (1 - hsl.s) * saturation, 1)
-    hsl.l = math.min(hsl.l + (1 - hsl.l) * brightness, 1)
-    return hsl_to_hex(hsl)
+local function hex_mod(hex, saturation, lightness)
+    local hsl = M.hex_to_hsl(hex)
+    hsl.s = math.min(1, math.max(0, hsl.s + saturation))
+    hsl.l = math.min(1, math.max(0, hsl.l + lightness))
+
+    return M.hsl_to_hex(hsl)
 end
 
+---@type table<string, string>
 M.palette = {
-    -- mountain fuji theme
-    yuki = "#f0f0f0", -- fg
-    fuyu = "#cacaca",
-    tsuki = "#bfbfbf",
-    okami = "#a0a0a0",
-    gin = "#767676",
-    amagumo = "#4c4c4c",
-    tetsu = "#393939",
-    iwa = "#262626",
-    kesseki = "#191919",
+    -- based on mountain fuji theme
+    -- grayscale
     yoru = "#0f0f0f",
+    kesseki = "#191919",
+    iwa = "#262626",
+    tetsu = "#393939",
+    amagumo = "#4c4c4c",
+    gin = "#767676",
+    okami = "#a0a0a0",
+    tsuki = "#bfbfbf",
+    fuyu = "#cacaca",
 
-    usagi = "#e7e7e7",
+    -- alphas
     ume = "#8f8aac",
     kosumosu = "#ac8aac",
     chikyu = "#aca98a",
-    yellow = "#ab9a78",
     kaen = "#ac8a8c",
-    red = "#b36d7c",
-    dusty_red = "#c48282",
     aki = "#c6a679",
-    yuyake = "#ceb188",
-    orange = "#c59a5f",
     mizu = "#8aacab",
     take = "#8aac8b",
-    -- green = "#789978",
-    green = "#778c73", -- duller
     shinkai = "#8a98ac",
+    usagi = "#e7e7e7",
+
+    -- accents
+    ajisai = "#a39ec4",
+    sakura = "#c49ec4",
+    suna = "#c4c19e",
+    ichigo = "#c49ea0",
+    yuyake = "#ceb188",
+    sora = "#9ec3c4",
+    kusa = "#9ec49f",
     kori = "#a5b4cb",
+    yuki = "#f0f0f0",
+
     blue = "#7e97ab",
-    moon = "#aeaed1",
     -- bluelsf = "#7ba6de",
     -- bluewjsn = "#002f6c",
-    -- mint = "#b4d4cf",
+    green = "#778c73",
+    moon = "#aeaed1",
+    orange = "#c59a5f",
+    red = "#b36d7c",
+    yellow = "#ab9a78",
 }
 
+---@type table<string, string>
 M.colors = {
+    -- for testing
+    -- Red = "#ff0000",
+    -- Magenta = "#ff00ff",
+    -- Lime = "#00ff00",
+
     none = "none",
-    Red = "#ff0000",
-    Magenta = "#ff00ff",
-    Lime = "#00ff00",
-    moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.brightness),
+    moon = hex_mod(M.palette.moon, config.opts.saturation, config.opts.lightness),
 
-    fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.brightness),
-    fg_mid = hex_mod(M.palette.tsuki, config.opts.saturation, config.opts.brightness),
-    fg_dark = hex_mod(M.palette.okami, config.opts.saturation, config.opts.brightness),
-    fg_comment = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.brightness),
+    fg = hex_mod(M.palette.fuyu, config.opts.saturation, config.opts.lightness),
+    fg_mid = hex_mod(M.palette.tsuki, config.opts.saturation, config.opts.lightness),
+    fg_dark = hex_mod(M.palette.okami, config.opts.saturation, config.opts.lightness),
+    fg_comment = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.lightness),
 
-    bg = hex_mod(M.palette.yoru, config.opts.saturation, config.opts.brightness),
-    bg_float = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.brightness),
-    bg_visual = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.brightness),
-    cursor_line = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.brightness),
+    bg = hex_mod(M.palette.yoru, config.opts.saturation, config.opts.lightness),
+    bg_float = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.lightness),
+    bg_visual = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.lightness),
+    cursor_line = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.lightness),
 
-    gray0 = hex_mod(M.palette.okami, config.opts.saturation, config.opts.brightness),
-    gray1 = hex_mod(M.palette.gin, config.opts.saturation, config.opts.brightness),
-    gray2 = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.brightness),
-    gray3 = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.brightness),
-    gray4 = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.brightness),
-    gray5 = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.brightness),
+    gray0 = hex_mod(M.palette.okami, config.opts.saturation, config.opts.lightness),
+    gray1 = hex_mod(M.palette.gin, config.opts.saturation, config.opts.lightness),
+    gray2 = hex_mod(M.palette.amagumo, config.opts.saturation, config.opts.lightness),
+    gray3 = hex_mod(M.palette.tetsu, config.opts.saturation, config.opts.lightness),
+    gray4 = hex_mod(M.palette.iwa, config.opts.saturation, config.opts.lightness),
+    gray5 = hex_mod(M.palette.kesseki, config.opts.saturation, config.opts.lightness),
 
-    purple = hex_mod(M.palette.ume, config.opts.saturation, config.opts.brightness),
-    pink = hex_mod(M.palette.kosumosu, config.opts.saturation, config.opts.brightness),
-    yellow = hex_mod(M.palette.chikyu, config.opts.saturation, config.opts.brightness),
-    red = hex_mod(M.palette.red, config.opts.saturation, config.opts.brightness),
+    purple = hex_mod(M.palette.ume, config.opts.saturation, config.opts.lightness),
+    pink = hex_mod(M.palette.kosumosu, config.opts.saturation, config.opts.lightness),
+    yellow = hex_mod(M.palette.chikyu, config.opts.saturation, config.opts.lightness),
+    red = hex_mod(M.palette.red, config.opts.saturation, config.opts.lightness),
     red_diff = hex_mod(M.palette.red, config.opts.saturation, -0.8),
-    orange = hex_mod(M.palette.aki, config.opts.saturation, config.opts.brightness),
-    green = hex_mod(M.palette.green, config.opts.saturation, config.opts.brightness),
+    orange = hex_mod(M.palette.aki, config.opts.saturation, config.opts.lightness),
+    green = hex_mod(M.palette.green, config.opts.saturation, config.opts.lightness),
     green_diff = hex_mod(M.palette.green, config.opts.saturation, -0.75),
-    blue = hex_mod(M.palette.blue, config.opts.saturation, config.opts.brightness),
+    blue = hex_mod(M.palette.blue, config.opts.saturation, config.opts.lightness),
     blue_diff = hex_mod(M.palette.blue, config.opts.saturation, -0.75),
 }
 

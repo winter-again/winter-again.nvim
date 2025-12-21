@@ -359,76 +359,8 @@ local highlights = {
         -- ["@lsp.typemod.variable.injected"] = { link = "@variable" },
         -- ["@lsp.typemod.variable.static"] = { link = "@constant" },
     },
-    oil = {
-        OilSize = { fg = colors.yellow },
-        OilModTime = { fg = colors.pink },
-        OilDir = { fg = colors.blue, bold = true },
-    },
-    statusline = {
-        StatuslineModeNormal = { fg = colors.gray0, bg = colors.gray4, bold = true },
-        StatuslineModeInsert = { fg = colors.bg, bg = colors.purple, bold = true },
-        StatuslineModeVisual = { fg = colors.bg, bg = colors.green, bold = true },
-        StatuslineModeCommand = { fg = colors.bg, bg = colors.blue, bold = true },
-        StatuslineModePending = { link = "StatuslineModeNormal" },
-        StatuslineModeOther = { link = "StatuslineModeNormal" },
-
-        StatuslineGitHead = { fg = colors.gray0, bg = colors.gray3, bold = true },
-
-        StatuslineSectionInner = { fg = colors.gray0, bg = colors.gray3 },
-        StatuslineSectionOuter = { fg = colors.gray0, bg = colors.gray4 },
-    },
-    syntax = {
-        -- Suggested syntax highlight group names
-        -- :h group-name
-        Comment = override_textstyle({ fg = colors.fg_comment }, opts.text_styles.comments), -- any comment
-        Constant = { fg = colors.moon, bold = true }, -- (preferred) any constant
-        String = { fg = colors.green }, --   a string constant: "this is a string"
-        Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
-        Number = override_textstyle({ fg = colors.orange }, opts.text_styles.numbers), --   a number constant: 234, 0xff
-        Boolean = override_textstyle({ fg = colors.yellow }, opts.text_styles.booleans), --  a boolean constant: TRUE, false
-        Float = override_textstyle({ fg = colors.orange }, opts.text_styles.floats), -- a floating point constant: 2.3e10
-        Identifier = { fg = colors.fg }, -- (preferred) any variable name
-        Function = override_textstyle({ fg = colors.purple }, opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
-        Statement = { fg = colors.pink }, -- (preferred) any statement
-        Conditional = { fg = colors.blue, bold = true }, --  if, then, else, endif, switch, etcolors.
-        Repeat = { link = "Conditional" }, --   for, do, while, etcolors. (TS: @keyword.repeat)
-        -- Label = {}, --    case, default, etcolors.
-        Operator = { fg = colors.fg_dark }, -- "sizeof", "+", "*", etcolors. (also "==", "=", "->")
-        -- NOTE: Keyword seems to take precedent over Statement
-        Keyword = override_textstyle({ fg = colors.pink }, opts.text_styles.keywords), --  any other keyword like "local" in Lua and import in Python/Go
-        Exception = { link = "Keyword" }, --  try, catch, throw
-        PreProc = { fg = colors.purple }, -- (preferred) generic Preprocessor
-        Include = { link = "PreProc" }, --  preprocessor #include
-        Define = { link = "PreProc" }, --   preprocessor #define
-        Macro = { link = "PreProc" }, --    same as Define
-        PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
-        Type = override_textstyle({ fg = colors.pink }, opts.text_styles.types), -- (preferred) int, long, char, etcolors.
-        -- StorageClass  = {}, -- static, register, volatile, etcolors.
-        Structure = { link = "Type" }, --  struct, union, enum, etcolors.
-        -- Typedef       = {}, --  A typedef
-        Special = { fg = colors.blue }, -- (preferred) any special symbol
-        -- SpecialChar   = {}, --  special character in a constant
-        Tag = { fg = colors.blue }, --    you can use CTRL-] on this
-        Delimiter = { fg = colors.fg_dark }, --  character that needs attention
-        -- SpecialComment= {}, -- special things inside a comment
-        -- Debug = {}, --    debugging statements
-        Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
-        -- Ignore = {}, -- (preferred) left blank, hidden  |hl-Ignore|
-        Error = { fg = colors.red }, -- (preferred) any erroneous construct
-        Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
-        Added = { link = "DiffAdd" },
-        Changed = { link = "DiffChange" },
-        Removed = { link = "DiffDelete" },
-
-        -- htmlH1 = { link = "markdownH1" },
-        -- htmlH2 = { link = "markdownH2" },
-        -- htmlH3 = { link = "markdownH3" },
-        -- htmlH4 = { link = "markdownH4" },
-        -- htmlH5 = { link = "markdownH5" },
-        -- htmlItalic = { italic = true },
-        -- htmlLink = { link = "markdownUrl" },
-
-        -- NOTE: added these
+    markdown = {
+        -- NOTE: no longer in docs?
         markdownH1 = {
             fg = colors.purple,
             bg = opts.transparent and colors.none or colors.bg,
@@ -489,6 +421,67 @@ local highlights = {
             bg = opts.transparent and colors.none or colors.bg,
             bold = true,
         },
+    },
+    oil = {
+        OilSize = { fg = colors.yellow },
+        OilModTime = { fg = colors.pink },
+        OilDir = { fg = colors.blue, bold = true },
+    },
+    statusline = {
+        StatuslineModeNormal = { fg = colors.gray0, bg = colors.gray4, bold = true },
+        StatuslineModeInsert = { fg = colors.bg, bg = colors.purple, bold = true },
+        StatuslineModeVisual = { fg = colors.bg, bg = colors.green, bold = true },
+        StatuslineModeCommand = { fg = colors.bg, bg = colors.blue, bold = true },
+        StatuslineModePending = { link = "StatuslineModeNormal" },
+        StatuslineModeOther = { link = "StatuslineModeNormal" },
+
+        StatuslineGitHead = { fg = colors.gray0, bg = colors.gray3, bold = true },
+
+        StatuslineSectionInner = { fg = colors.gray0, bg = colors.gray3 },
+        StatuslineSectionOuter = { fg = colors.gray0, bg = colors.gray4 },
+    },
+    syntax = {
+        -- Suggested syntax highlight group names
+        -- :h group-name
+        Comment = override_textstyle({ fg = colors.fg_comment }, opts.text_styles.comments), -- any comment
+        Constant = { fg = colors.moon, bold = true }, -- (preferred) any constant
+        String = { fg = colors.green }, --   a string constant: "this is a string"
+        Character = { fg = colors.yellow }, --  a character constant: 'c', '\n'
+        Number = override_textstyle({ fg = colors.orange }, opts.text_styles.numbers), --   a number constant: 234, 0xff
+        Boolean = override_textstyle({ fg = colors.yellow }, opts.text_styles.booleans), --  a boolean constant: TRUE, false
+        Float = override_textstyle({ fg = colors.orange }, opts.text_styles.floats), -- a floating point constant: 2.3e10
+        Identifier = { fg = colors.fg }, -- (preferred) any variable name
+        Function = override_textstyle({ fg = colors.purple }, opts.text_styles.functions), -- function name (also: methods for classes) (TS: @function)
+        Statement = { fg = colors.pink }, -- (preferred) any statement
+        Conditional = { fg = colors.blue, bold = true }, --  if, then, else, endif, switch, etcolors.
+        Repeat = { link = "Conditional" }, --   for, do, while, etcolors. (TS: @keyword.repeat)
+        -- Label = {}, --    case, default, etcolors.
+        Operator = { fg = colors.fg_dark }, -- "sizeof", "+", "*", etcolors. (also "==", "=", "->")
+        -- NOTE: Keyword seems to take precedent over Statement
+        Keyword = override_textstyle({ fg = colors.pink }, opts.text_styles.keywords), --  any other keyword like "local" in Lua and import in Python/Go
+        Exception = { link = "Keyword" }, --  try, catch, throw
+        PreProc = { fg = colors.purple }, -- (preferred) generic Preprocessor
+        Include = { link = "PreProc" }, --  preprocessor #include
+        Define = { link = "PreProc" }, --   preprocessor #define
+        Macro = { link = "PreProc" }, --    same as Define
+        PreCondit = { link = "PreProc" }, --  preprocessor #if, #else, #endif, etcolors.
+        Type = override_textstyle({ fg = colors.pink }, opts.text_styles.types), -- (preferred) int, long, char, etcolors.
+        -- StorageClass  = {}, -- static, register, volatile, etcolors.
+        Structure = { link = "Type" }, --  struct, union, enum, etcolors.
+        -- Typedef       = {}, --  A typedef
+        Special = { fg = colors.blue }, -- (preferred) any special symbol
+        -- SpecialChar   = {}, --  special character in a constant
+        Tag = { fg = colors.blue }, --    you can use CTRL-] on this
+        Delimiter = { fg = colors.fg_dark }, --  character that needs attention
+        -- SpecialComment= {}, -- special things inside a comment
+        -- Debug = {}, --    debugging statements
+        Underlined = { underline = true }, -- (preferred) text that stands out, HTML links
+        -- Ignore = {}, -- (preferred) left blank, hidden  |hl-Ignore|
+        Error = { fg = colors.red }, -- (preferred) any erroneous construct
+        Todo = { fg = colors.purple }, -- (preferred) anything that needs extra attention; mostly the keywords TODO FIXME and XXX
+        Added = { link = "DiffAdd" },
+        Changed = { link = "DiffChange" },
+        Removed = { link = "DiffDelete" },
     },
     todo_comments = {
         TodoFgTodo = { fg = colors.purple },

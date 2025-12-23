@@ -43,7 +43,7 @@ local defaults = {
         keywords = { bold = true },
         types = { italic = true },
     },
-    hl_overrides = nil,
+    hl_overrides = function(highlights, colors) end,
 }
 
 ---@type Options

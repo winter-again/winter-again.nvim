@@ -290,8 +290,6 @@ local highlights = {
 
         -- NOTE: match foreground but set bg to none: override when marksman LSP active
         -- ["@lsp.type.class.markdown"] = {},
-        -- NOTE: note tags in markdown
-        ["@lsp.type.enumMember.markdown"] = { fg = colors.green, bold = true },
 
         -- LSP Semantic Token Groups (semantic highlighting)
         -- see :h lsp-semantic-highlight
